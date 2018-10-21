@@ -8,7 +8,7 @@
 
 # Guides
 
-0. Issues
+0. Asking questions (using GitHUb issues)
 1. Installing Python
 2. Jupyter Notebook
 3. VSCode (basic)
