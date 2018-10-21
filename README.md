@@ -8,12 +8,18 @@
 
 # Guides
 
-0. Asking questions (using GitHUb issues)
+Installation and work-flow:
+
 1. Installing Python
 2. Jupyter Notebook
 3. VSCode (basic)
 4. Git in VSCode
 5. Debugging in VSCode (debugging)
+
+Other:
+
+1. Searching for answers (using Google + Stackoverflow)
+2. Asking questions (using GitHUb issues)
 
 Cheatsheet for VSCode
 
