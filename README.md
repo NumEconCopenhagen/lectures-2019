@@ -6,6 +6,17 @@
 
 [Deadlines 2019](https://docs.google.com/spreadsheets/d/1f9qFOIj1gybzNqqtVoj3m1M-n7AKYesdkxSPKERy2Qw/edit#gid=1691428044)
 
+# Guides
+
+0. Issues
+1. Installing Python
+2. Jupyter Notebook
+3. VSCode (basic)
+4. Git in VSCode
+5. Debugging in VSCode (debugging)
+
+Cheatsheet for VSCode
+
 # Course Description
 
 [Course description on kurser.ku.dk](http://kurser.ku.dk/course/a%C3%98ka08232u/2018-2019) (with exam details etc.)
