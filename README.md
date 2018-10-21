@@ -1,7 +1,9 @@
 # Course Plan
 
-Overview
+[Overview](https://github.com/NumEconCopenhagen/lectures-2019/wiki/Course-Plan)
+
 [Course plan 2019](https://docs.google.com/spreadsheets/d/1f9qFOIj1gybzNqqtVoj3m1M-n7AKYesdkxSPKERy2Qw/edit#gid=0)
+
 [Deadlines 2019](https://docs.google.com/spreadsheets/d/1f9qFOIj1gybzNqqtVoj3m1M-n7AKYesdkxSPKERy2Qw/edit#gid=1691428044)
 
 # Course Description
