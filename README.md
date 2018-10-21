@@ -18,7 +18,7 @@ Installation and work-flow:
 
 Other:
 
-1. Searching for answers (using Google + Stackoverflow)
+1. Searching for answers (using online documentation, Google, Stackoverflow etc.)
 2. Asking questions (using GitHUb issues)
 
 Cheatsheet for VSCode
