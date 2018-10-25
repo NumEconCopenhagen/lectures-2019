@@ -1,0 +1,2197 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass beamer
+\begin_preamble
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{appendixnumberbeamer}
+
+\usetheme[progressbar=frametitle,block=fill]{metropolis}
+
+% margin
+\setbeamersize{text margin right=1.5cm}
+
+% colors
+\colorlet{DarkRed}{red!70!black}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{alerted text}{fg=DarkRed}
+\setbeamercolor{progress bar}{fg=DarkRed}
+\setbeamercolor{button}{bg=DarkRed}
+
+% width of seperators
+\makeatletter
+\setlength{\metropolis@titleseparator@linewidth}{1pt}
+\setlength{\metropolis@progressonsectionpage@linewidth}{1pt}
+\setlength{\metropolis@progressinheadfoot@linewidth}{1pt}
+\makeatother
+
+% new alert block
+\newlength\origleftmargini
+\setlength\origleftmargini\leftmargini
+\setbeamertemplate{itemize/enumerate body begin}{\setlength{\leftmargini}{4mm}}
+\let\oldalertblock\alertblock
+\let\oldendalertblock\endalertblock
+\def\alertblock{\begingroup \setbeamertemplate{itemize/enumerate body begin}{\setlength{\leftmargini}{\origleftmargini}} \oldalertblock}
+\def\endalertblock{\oldendalertblock \endgroup}
+\setbeamertemplate{mini frame}{}
+\setbeamertemplate{mini frame in current section}{}
+\setbeamertemplate{mini frame in current subsection}{}
+\setbeamercolor{section in head/foot}{fg=normal text.bg, bg=structure.fg}
+\setbeamercolor{subsection in head/foot}{fg=normal text.bg, bg=structure.fg}
+
+% footer
+\makeatletter
+\setbeamertemplate{footline}{%
+    \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
+    \end{beamercolorbox}
+    \begin{beamercolorbox}{section in head/foot}
+      \vskip1pt\insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt plus1filll \insertframenumber{} / \inserttotalframenumber \hskip2pt}\vskip3pt% 
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
+    \end{beamercolorbox}
+}
+\makeatother
+
+% toc
+\setbeamertemplate{section in toc}{\hspace*{1em}\inserttocsectionnumber.~\inserttocsection\par}
+\setbeamertemplate{subsection in toc}{\hspace*{2em}\inserttocsectionnumber.\inserttocsubsectionnumber.~\inserttocsubsection\par}
+
+% links
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=,
+  urlcolor=DarkRed
+}
+\end_preamble
+\options t,10pt
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "lmodern" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures false
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 10
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation skip
+\defskip smallskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style danish
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+title{1.
+ Introduction 
+\backslash
+vspace{-2mm}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+subtitle{Introduction to Programming and Numerical Analysis 
+\backslash
+vspace{-4mm}} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+author{Jeppe Druedahl}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+date{Spring 2019}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setbeamertemplate{footline}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{frame}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+maketitle
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[overlay, remember picture]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[above left=0cm and 0.0cm of current page.south east] 
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\backslash
+includegraphics[width=4cm]{figs/KUSAMFtitlelrcorner.pdf}};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[overlay, remember picture]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[below left=0.5cm and .8cm of current page.north east] 
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\backslash
+includegraphics[width=1.5cm]{figs/KUSAMFlogo.pdf}};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[overlay, remember picture]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[below right=0.5cm and .8cm of current page.north west] 
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\backslash
+includegraphics[width=1.5cm]{figs/CEBI.png}};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{frame}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+addtocounter{framenumber}{-1}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{frame}<beamer>
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+frametitle{Plan}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tableofcontents[]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{frame}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Intended learning goals
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+In a nutshell:
+\series default
+ 
+\emph on
+Learn how to use numerical analysis to improve your understanding of economic
+ problems
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Visualize solutions and simulations of well-known models
+\end_layout
+
+\begin_layout Enumerate
+Explore alternative assumptions regarding functional forms and calibrations
+ of parameters
+\end_layout
+
+\begin_layout Enumerate
+Solve more realistic models with constraints, uncertainty and non-convexity,
+ where algebraic solutions are not available
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+You will get 
+\series bold
+a better understanding of 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+economic theory itself
+\end_layout
+
+\begin_layout Enumerate
+how to empirically test economic theories
+\end_layout
+
+\begin_layout Enumerate
+scientific programming in itself
+\end_layout
+
+\begin_layout Enumerate
+collaboration on code projects
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Vision
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Vision: 
+\series default
+All of economics should be taught by a combination of numerical and mathematical
+ analysis
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->[]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+ 
+\series bold
+NumEcon: 
+\series default
+online repository with Python code to solve economic problems at the bachelor
+ level
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Active learning:
+\series default
+ To learn scientific programming you need to work on actual problems yourself
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->[]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+ your exam projects could end up as part of NumEcon
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Pioneer spirit: 
+\series default
+you are the first generation 
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+ you can greatly affect how this course will be taught in the future 
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+High level: 
+\series default
+Very few (if any) econ bachelor programs provide education on numerical
+ analysis on the level you will get
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Scientific programming
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Numerical analysis
+\series default
+ is a 
+\series bold
+\emph on
+complement
+\series default
+\emph default
+ not a substitute for 
+\series bold
+math
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Three central steps:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+mathematical problem 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ construct algorithm
+\end_layout
+
+\begin_layout Enumerate
+algorithm 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ write code
+\end_layout
+
+\begin_layout Enumerate
+write code 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ present results
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+The set of potential errors is infinite:
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+A good work-flow is very important
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Clear structure reduces the number of bugs
+\end_layout
+
+\begin_layout Enumerate
+Testing helps discovering bugs
+\end_layout
+
+\begin_layout Enumerate
+Documentation helps removing bugs
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+for others or your future-self
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Programming is more than writing code: 
+\series default
+Structuring, testing and documenting your code is a central aspect of this
+ course
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+First Example
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+First Example
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+We work with 
+\series bold
+Python 3.7
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Suggested environment:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\series bold
+Distribution:
+\series default
+ Anaconda
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Editor/IDE
+\series default
+: VSCode
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+I will show 
+\series default
+how to
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Run Python in a Jupyter Notebook
+\end_layout
+
+\begin_layout Enumerate
+Solve the consumer problem
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+should involving searching
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Course Plan
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Course plan - lectures
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-2mm}
+\backslash
+footnotesize
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Introduction
+\end_layout
+
+\begin_layout Enumerate
+Fundamentals: Primitives
+\end_layout
+
+\begin_layout Enumerate
+Fundamentals: Printing and Plotting
+\end_layout
+
+\begin_layout Enumerate
+Fundamentals: Random Numbers and Simulation
+\end_layout
+
+\begin_layout Enumerate
+Fundamentals: Workflow and Debugging
+\end_layout
+
+\begin_layout Enumerate
+Working with Data: Load/Save and Structure Data
+\end_layout
+
+\begin_layout Enumerate
+Working with Data: Basic Data Analysis
+\end_layout
+
+\begin_layout Enumerate
+Supervision on data project
+\end_layout
+
+\begin_layout Enumerate
+Algorithms: Searching and Sorting
+\end_layout
+
+\begin_layout Enumerate
+Algorithms: Solving Equations (Numerically and Symbolically)
+\end_layout
+
+\begin_layout Enumerate
+Algorithms: Numerical Optimization
+\end_layout
+
+\begin_layout Enumerate
+Further Perspectives: The Need for Speed
+\begin_inset Newline newline
+\end_inset
+
++ supervision on model project
+\end_layout
+
+\begin_layout Enumerate
+Further Perspectives: R and MATLAB
+\end_layout
+
+\begin_layout Enumerate
+Further Perspectives: Julia
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Course plan - classes
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+main idea: driven by problem solving
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-2mm}
+\backslash
+footnotesize
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+DataCamp
+\end_layout
+
+\begin_layout Enumerate
+DataCamp
+\end_layout
+
+\begin_layout Enumerate
+DataCamp
+\end_layout
+
+\begin_layout Enumerate
+Problem Set 1: Solving the Consumer Problem
+\end_layout
+
+\begin_layout Enumerate
+Problem Set 2: Finding the Walras Equilibrium in a Multi-Agent Economy
+\end_layout
+
+\begin_layout Enumerate
+Problem Set 3: Loading and Combining Data from Denmark Statistics
+\end_layout
+
+\begin_layout Enumerate
+Problem Set 4: Analyzing Data form Denmark Statistic
+\end_layout
+
+\begin_layout Enumerate
+Work on your data project
+\end_layout
+
+\begin_layout Enumerate
+Problem Set 5: Writing Your Own Searching and Sorting Algorithms
+\end_layout
+
+\begin_layout Enumerate
+Problem Set 6: Solving the Solow Model 
+\begin_inset Newline newline
+\end_inset
+
++ feedback on data analysis project
+\end_layout
+
+\begin_layout Enumerate
+Problem Set 7: Solving the Consumer Problem with Income Risk
+\end_layout
+
+\begin_layout Enumerate
+Problem Set 8: Comperehension, Vectorization and Numba
+\end_layout
+
+\begin_layout Enumerate
+Work on your model analysis project
+\end_layout
+
+\begin_layout Enumerate
+Feedback on model project
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Infrastructure
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Time, place and exam
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Time and place:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\series bold
+Lectures: 
+\series default
+Monday 15-17
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Classes:
+\series default
+ Tuesday/Wednesday 15-17
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Exam requirements 
+\series default
+(
+\begin_inset CommandInset href
+LatexCommand href
+name "deadlines"
+target "https://docs.google.com/spreadsheets/d/1f9qFOIj1gybzNqqtVoj3m1M-n7AKYesdkxSPKERy2Qw/edit#gid=1691428044"
+literal "false"
+
+\end_inset
+
+):
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Basic programming test (on 
+\begin_inset CommandInset href
+LatexCommand href
+name "DataCamp.com"
+target "https://www.datacamp.com/"
+literal "false"
+
+\end_inset
+
+, see e-mail)
+\end_layout
+
+\begin_layout Enumerate
+Data analysis project
+\end_layout
+
+\begin_layout Enumerate
+2x useful peer feedback on data analysis projects
+\end_layout
+
+\begin_layout Enumerate
+Model analysis project
+\end_layout
+
+\begin_layout Enumerate
+2x useful peer feedback on model analysis projects
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Exam: 
+\series default
+Data and model analysis projects + exam problem
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Grading:
+\series default
+ Pass or fail
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Groups: 
+\series default
+All projects can be done in 
+\emph on
+fixed
+\emph default
+ groups (maximum of 3)
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+GitHub.com (code hosting platform)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<1->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Our organization: 
+\series default
+NumEconCopehagen 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+name "github.com/NumEconCopenhagen"
+target "https://github.com/NumEconCopenhagen/"
+literal "false"
+
+\end_inset
+
+
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<2->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Repositories:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\series bold
+lectures-2019
+\series default
+: slides, course plan, guides etc.
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+exercises-2019: 
+\series default
+problem sets, solutions etc.
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+projects-2019-YOURGROUPNAME
+\series default
+: your own repository
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+NumEcon: 
+\series default
+Python package
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<2->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Note:
+\series default
+ Everything will be public
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Your work-flow
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Lectures: 
+\series default
+\emph on
+Listen to me, ask questions and solve small tasks
+\emph default
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+notebooks: _clean
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Overview of topic
+\end_layout
+
+\begin_layout Enumerate
+Introduction to new concepts
+\end_layout
+
+\begin_layout Enumerate
+Live coding
+\end_layout
+
+\begin_layout Enumerate
+Presentation of problem set
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Classes:
+\series default
+ Work on problem sets and ask questions to your fellow students and the
+ teaching assistants
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Solve tasks and puzzles
+\end_layout
+
+\begin_layout Enumerate
+Fill the missing code
+\end_layout
+
+\begin_layout Enumerate
+Find the error
+\end_layout
+
+\begin_layout Enumerate
+Solve full problem
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+In between classes and lectures: 
+\series default
+\emph on
+No curriculum to read!
+\emph default
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+ spend your time on solving the problem sets 
+\begin_inset Newline newline
+\end_inset
+
++ experimenting with your own ideas
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Questions
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Observation:
+\series default
+ Programming is the slow and painful removal of tiny errors in your code
+ – one at a time
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Ask questions!! 
+\series default
+In the following order
+\series bold
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Documentation
+\end_layout
+
+\begin_layout Enumerate
+Your group
+\end_layout
+
+\begin_layout Enumerate
+Your fellow students
+\end_layout
+
+\begin_layout Enumerate
+Google + Stackoverflow
+\end_layout
+
+\begin_layout Enumerate
+The teaching assistants
+\end_layout
+
+\begin_layout Enumerate
+The lecturer
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Online forums: 
+\series default
+use 
+\series bold
+issues 
+\series default
+in 
+\series bold
+exercises-2019 
+\series default
+and 
+\series bold
+lectures-2019
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+(learn how to following this 
+\begin_inset CommandInset href
+LatexCommand href
+name "guide"
+target "https://github.com/NumEconCopenhagen/lectures-2019/wiki/Guide:-Using-Issues"
+literal "false"
+
+\end_inset
+
+)
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Everybody often forgets the correct syntax
+\series default
+ 
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+ trial-and-error and testing is central, never a single correct approach
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Projects
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Basic programming test
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+You must complete the following courses on DataCamp
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Intro to Python for Data Science 
+\end_layout
+
+\begin_layout Enumerate
+Intermediate Python for Data Science 
+\end_layout
+
+\begin_layout Enumerate
+Python Data Science Toolbox (Part 1) 
+\end_layout
+
+\begin_layout Enumerate
+Python Data Science Toolbox (Part 2)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+First 3 classes:
+\series default
+ Reserved for your work on DataCamp
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Data analysis project
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace -2mm
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Objectives:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Apply data analysis methods
+\end_layout
+
+\begin_layout Enumerate
+Structure code project
+\end_layout
+
+\begin_layout Enumerate
+Document code
+\end_layout
+
+\begin_layout Enumerate
+Present results
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Content:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Import data from an online source
+\end_layout
+
+\begin_layout Enumerate
+Present the data visually (and perhaps interactively)
+\end_layout
+
+\begin_layout Enumerate
+Apply some method(s) from descriptive economics (
+\begin_inset Quotes ald
+\end_inset
+
+samfundsbeskrivelse
+\begin_inset Quotes ard
+\end_inset
+
+)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Structure:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+A self-contained single notebook presenting the analysis 
+\end_layout
+
+\begin_layout Enumerate
+Fully documented python files
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Hand-in: 
+\series default
+Create and commit folder called 
+\begin_inset Quotes eld
+\end_inset
+
+data_analysis_project
+\begin_inset Quotes erd
+\end_inset
+
+ in your GitHub repository
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Model analysis project
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace -2mm
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Objectives:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Apply model analysis methods
+\end_layout
+
+\begin_layout Enumerate
+Structure code project
+\end_layout
+
+\begin_layout Enumerate
+Document code
+\end_layout
+
+\begin_layout Enumerate
+Present results
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Content:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Description of algorithm to solve simple economic model
+\end_layout
+
+\begin_layout Enumerate
+Solution (and perhaps simulation) of simple economic model
+\end_layout
+
+\begin_layout Enumerate
+Visualization of results across e.g.
+ parametrization
+\end_layout
+
+\begin_layout Enumerate
+Analysis of extensions of the baseline model
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Structure:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+A self-contained single notebook presenting the analysis 
+\end_layout
+
+\begin_layout Enumerate
+Fully documented python files
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Hand-in: 
+\series default
+Create and commit folder called 
+\begin_inset Quotes eld
+\end_inset
+
+model_analysis_project
+\begin_inset Quotes erd
+\end_inset
+
+ in your GitHub repository
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+More Examples
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+More Examples
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+I will show 
+\series default
+how to
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Simulate the AS-AD model
+\end_layout
+
+\begin_layout Enumerate
+Write modules in VSCode
+\end_layout
+
+\begin_layout Enumerate
+Run python code in VSCode
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Summing Up
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Summing up
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+I hope your have:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+An idea of why learning numerical analysis is important
+\end_layout
+
+\begin_layout Enumerate
+What you will learn in this course
+\end_layout
+
+\begin_layout Enumerate
+How you will learn it by working actively
+\end_layout
+
+\begin_layout Enumerate
+How you will qualify for and pass the exam
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Examples: 
+\series default
+Can be accessed online through 
+\series bold
+binder
+\series default
+ without installing Python
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Your to-do list
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\series bold
+First priority:
+\series default
+ Login to DataCamp (see info in e-mail)
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Second priority: 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Install 
+\series bold
+Anaconda with VSCode
+\end_layout
+
+\begin_layout Enumerate
+Open a 
+\series bold
+Jupyter Notebook
+\series default
+ and experiment
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Third priority:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Create 
+\series bold
+GitHub account
+\end_layout
+
+\begin_layout Enumerate
+Clone 
+\series bold
+exercises-2019
+\series default
+ and 
+\series bold
+lectures-2019
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Create/join group
+\series default
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "here"
+target "https://classroom.github.com/g/MdOM_sOo"
+literal "false"
+
+\end_inset
+
+
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Next time: 
+\series default
+Fundamental introduction to Python
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
