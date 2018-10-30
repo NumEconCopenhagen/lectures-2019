@@ -1,3 +1,5 @@
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/NumEconCopenhagen/lectures-2019/master)
+
 # Course Plan
 
 [Overview](https://github.com/NumEconCopenhagen/lectures-2019/wiki/Course-Plan)
@@ -10,9 +12,9 @@
 
 Installation and work-flow:
 
-1. Installing Python
+1. [Installing Python and more](https://github.com/NumEconCopenhagen/lectures-2019/wiki/Installing-Python-and-more)
 2. Jupyter Notebook
-3. VSCode (basic)
+3. [VSCode (basic)](https://github.com/NumEconCopenhagen/lectures-2019/wiki/VS-Code-(basic))
 4. Git in VSCode
 5. Debugging in VSCode (debugging)
 
