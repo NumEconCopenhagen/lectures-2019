@@ -1,3 +1,5 @@
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/NumEconCopenhagen/lectures-2019/master)
+
 # Course Plan
 
 [Overview](https://github.com/NumEconCopenhagen/lectures-2019/wiki/Course-Plan)
