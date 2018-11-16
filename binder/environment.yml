@@ -11,5 +11,5 @@ dependencies:
   - matplotlib
   - ipywidgets
   - rise
-- pip:
-  - jupyter-contrib-nbextensions
+  - pip:
+    - jupyter-contrib-nbextensions
