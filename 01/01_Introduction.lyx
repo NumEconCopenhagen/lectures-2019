@@ -377,7 +377,7 @@ end{frame}
 \end_layout
 
 \begin_layout Section
-Introduction
+Intended learning goals
 \end_layout
 
 \begin_layout Frame
@@ -426,10 +426,15 @@ Explore alternative assumptions regarding functional forms and calibrations
 \end_layout
 
 \begin_layout Enumerate
-Solve more realistic models with constraints, uncertainty and non-convexity,
+Solve more realistic models with constraints, uncertainty and non-convexities,
  where algebraic solutions are not available
 \end_layout
 
+\begin_layout Enumerate
+Work with online data and do programming based statistics and descriptive
+ economics
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 \begin_inset ERT
@@ -442,95 +447,23 @@ status open
 
 \end_inset
 
-You will get 
+Focus will be on 
 \series bold
-a better understanding of 
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-economic theory itself
-\end_layout
-
-\begin_layout Enumerate
-how to empirically test economic theories
-\end_layout
-
-\begin_layout Enumerate
-scientific programming in itself
-\end_layout
-
-\begin_layout Enumerate
-collaboration on code projects
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Standard
-\begin_inset Separator plain
-\end_inset
-
-
-\end_layout
-
-\begin_layout Frame
-\begin_inset Argument 4
-status open
-
-\begin_layout Plain Layout
-Vision
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->
-\end_layout
-
-\end_inset
-
-
-\series bold
-Vision: 
+methods
 \series default
-All of economics should be taught by a combination of numerical and mathematical
- analysis
-\end_layout
-
-\begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->[]
-\end_layout
-
+ rather than 
+\series bold
+economics
+\begin_inset Newline newline
 \end_inset
 
+
+\series default
 
 \begin_inset Formula $\Rightarrow$
 \end_inset
 
- 
-\series bold
-NumEcon: 
-\series default
-online repository with Python code to solve economic problems at the bachelor
- level
-\begin_inset VSpace 2mm
-\end_inset
-
-
+ very relevant for applying in bachelor and master theses
 \end_layout
 
 \begin_layout Itemize
@@ -544,82 +477,15 @@ status open
 
 \end_inset
 
-
+You will learn a 
 \series bold
-Active learning:
+set of important tools
 \series default
- To learn scientific programming you need to work on actual problems yourself
-\end_layout
-
-\begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->[]
-\end_layout
-
-\end_inset
-
-
-\begin_inset Formula $\Rightarrow$
-\end_inset
-
- your exam projects could end up as part of NumEcon
-\begin_inset VSpace 2mm
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->
-\end_layout
-
-\end_inset
-
-
+, but it is equally important that you 
 \series bold
-Pioneer spirit: 
+learn how to acquire new tools 
 \series default
-you are the first generation 
-\begin_inset Formula $\Rightarrow$
-\end_inset
-
- you can greatly affect how this course will be taught in the future 
-\begin_inset VSpace 2mm
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->
-\end_layout
-
-\end_inset
-
-
-\series bold
-High level: 
-\series default
-Very few (if any) econ bachelor programs provide education on numerical
- analysis on the level you will get
-\begin_inset VSpace 2mm
-\end_inset
-
-
+for problems you will face in the future (in your studies or work-life)
 \end_layout
 
 \end_deeper
@@ -773,8 +639,8 @@ status open
 \series bold
 Programming is more than writing code: 
 \series default
-Structuring, testing and documenting your code is a central aspect of this
- course
+Structuring, testing, documenting and collaborating on code is a central
+ aspect of this course
 \end_layout
 
 \end_deeper
@@ -785,8 +651,110 @@ Structuring, testing and documenting your code is a central aspect of this
 
 \end_layout
 
-\begin_layout Section
-First Example
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Active learning
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Active learning:
+\series default
+ To learn scientific programming you need to work on actual problems yourself
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+I can show you examples
+\end_layout
+
+\begin_layout Itemize
+I can guide you in terms of where to start
+\end_layout
+
+\begin_layout Itemize
+I can answer questions
+\end_layout
+
+\begin_layout Itemize
+But the lectures are probably the least important part of this course
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+High level: 
+\series default
+Very few (if any) econ bachelor programs provide education on numerical
+ analysis on the level you will get
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+you will learn stuff many professors do not know how to do in practice
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+First generation: 
+\series default
+All of your feedback is very important for optimizing and improving the
+ course!
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
 \end_layout
 
 \begin_layout Frame
@@ -794,7 +762,127 @@ First Example
 status open
 
 \begin_layout Plain Layout
-First Example
+Who I am
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Name:
+\series default
+ Jeppe Druedahl (ph.d.
+ polit)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Web-page:
+\series default
+ www.econ.ku.dk/druedahl
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Position:
+\series default
+ Assistant Professor at Department of Economics,
+\begin_inset Newline newline
+\end_inset
+
+Center for Economic Behavior and Inequality (CEBI)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Research interests:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Macro-questions
+\end_layout
+
+\begin_layout Enumerate
+Micro-data
+\end_layout
+
+\begin_layout Enumerate
+Numerical methods
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Modern macro-models
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Heterogenous agents (households and firms) take decisions under uncertainty
+ and imperfect information
+\end_layout
+
+\begin_layout Enumerate
+Markets are not complete
+\end_layout
+
+\begin_layout Enumerate
+The equilibrium is found approximately on a (large) computer
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Who you are
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+[results from questionnaire]
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Numerical analysis in action
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Numerical analysis in action
 \end_layout
 
 \end_inset
@@ -827,6 +915,14 @@ Distribution:
 \begin_layout Enumerate
 
 \series bold
+Documents:
+\series default
+ JupyterLab
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
 Editor/IDE
 \series default
 : VSCode
@@ -843,21 +939,11 @@ how to
 
 \begin_deeper
 \begin_layout Enumerate
-Run Python in a Jupyter Notebook
+Run Python in JupyterLab
 \end_layout
 
 \begin_layout Enumerate
-Solve the consumer problem
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-should involving searching
-\end_layout
-
-\end_inset
-
-
+Solve the consumer problem from microeconomics
 \end_layout
 
 \end_deeper
@@ -870,7 +956,243 @@ should involving searching
 \end_layout
 
 \begin_layout Section
-Course Plan
+Infrastructure
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Getting started
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Web-page:
+\series default
+ The course is organized around
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "www.numeconcopenhagen.netlify.com"
+target "https://numeconcopenhagen.netlify.com"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Install and run Python: 
+\series default
+Follow these guides
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset CommandInset href
+LatexCommand href
+name "Installing Python and VSCode"
+target "https://numeconcopenhagen.netlify.com/guides/python-setup"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset href
+LatexCommand href
+name "Running Python in JupyterLab"
+target "https://numeconcopenhagen.netlify.com/guides/jupyterlab"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset href
+LatexCommand href
+name "Running Python in VSCode"
+target "https://numeconcopenhagen.netlify.com/guides/vscode-basics"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+DataCamp: 
+\series default
+Online courses on Python (requires no installation)
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+ you get 6 months free access (see e-mail with details)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Binder:
+\series default
+ Online access to interactive version of the course materials (requires
+ no installation)
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Time, place and exam
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Time and place:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\series bold
+Lectures: 
+\series default
+Monday 15-17
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Classes:
+\series default
+ Tuesday/Wednesday 15-17
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Exam requirements 
+\series default
+(
+\begin_inset CommandInset href
+LatexCommand href
+name "deadlines"
+target "https://numeconcopenhagen.netlify.com/course-plan/#deadlines"
+literal "false"
+
+\end_inset
+
+):
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Basic programming test (on 
+\begin_inset CommandInset href
+LatexCommand href
+name "DataCamp.com"
+target "https://www.datacamp.com/"
+literal "false"
+
+\end_inset
+
+, see e-mail)
+\end_layout
+
+\begin_layout Enumerate
+Data analysis project
+\end_layout
+
+\begin_layout Enumerate
+2x useful peer feedback on data analysis projects
+\end_layout
+
+\begin_layout Enumerate
+Model analysis project
+\end_layout
+
+\begin_layout Enumerate
+2x useful peer feedback on model analysis projects
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Exam: 
+\series default
+Data and model analysis projects + exam problem
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Grading:
+\series default
+ Pass or fail
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Groups: 
+\series default
+All projects can be done in 
+\emph on
+fixed
+\emph default
+ groups (maximum of 3)
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
 \end_layout
 
 \begin_layout Frame
@@ -914,23 +1236,23 @@ Fundamentals: Primitives
 \end_layout
 
 \begin_layout Enumerate
-Fundamentals: Printing and Plotting
+Fundamentals: Optimize, print and plot
 \end_layout
 
 \begin_layout Enumerate
-Fundamentals: Random Numbers and Simulation
+Fundamentals: Random numbers and simulation
 \end_layout
 
 \begin_layout Enumerate
-Fundamentals: Workflow and Debugging
+Fundamentals: Workflow and debugging
 \end_layout
 
 \begin_layout Enumerate
-Working with Data: Load/Save and Structure Data
+Working with Data: Load/save and structure data
 \end_layout
 
 \begin_layout Enumerate
-Working with Data: Basic Data Analysis
+Working with Data: Basic data analysis
 \end_layout
 
 \begin_layout Enumerate
@@ -938,23 +1260,19 @@ Supervision on data project
 \end_layout
 
 \begin_layout Enumerate
-Algorithms: Searching and Sorting
+Algorithms: Searching and sorting
 \end_layout
 
 \begin_layout Enumerate
-Algorithms: Solving Equations (Numerically and Symbolically)
+Algorithms: Solving equations (numerically and symbolically)
 \end_layout
 
 \begin_layout Enumerate
-Algorithms: Numerical Optimization
+Algorithms: Numerical optimization
 \end_layout
 
 \begin_layout Enumerate
-Further Perspectives: The Need for Speed
-\begin_inset Newline newline
-\end_inset
-
-+ supervision on model project
+Further Perspectives: The need for speed
 \end_layout
 
 \begin_layout Enumerate
@@ -1028,19 +1346,19 @@ DataCamp
 \end_layout
 
 \begin_layout Enumerate
-Problem Set 1: Solving the Consumer Problem
+Problem Set 1: Solving the consumer problem
 \end_layout
 
 \begin_layout Enumerate
-Problem Set 2: Finding the Walras Equilibrium in a Multi-Agent Economy
+Problem Set 2: Finding the Walras equilibrium in a multi-agent economy
 \end_layout
 
 \begin_layout Enumerate
-Problem Set 3: Loading and Combining Data from Denmark Statistics
+Problem Set 3: Loading and combining data from Denmark Statistics
 \end_layout
 
 \begin_layout Enumerate
-Problem Set 4: Analyzing Data form Denmark Statistic
+Problem Set 4: Analyzing data from Denmark Statistics
 \end_layout
 
 \begin_layout Enumerate
@@ -1048,11 +1366,11 @@ Work on your data project
 \end_layout
 
 \begin_layout Enumerate
-Problem Set 5: Writing Your Own Searching and Sorting Algorithms
+Problem Set 5: Writing your own searching and sorting algorithms
 \end_layout
 
 \begin_layout Enumerate
-Problem Set 6: Solving the Solow Model 
+Problem Set 6: Solving the Solow model 
 \begin_inset Newline newline
 \end_inset
 
@@ -1060,11 +1378,11 @@ Problem Set 6: Solving the Solow Model
 \end_layout
 
 \begin_layout Enumerate
-Problem Set 7: Solving the Consumer Problem with Income Risk
+Problem Set 7: Solving the consumer problem with income risk
 \end_layout
 
 \begin_layout Enumerate
-Problem Set 8: Comperehension, Vectorization and Numba
+Problem Set 8: Comperehension, vectorization and numba
 \end_layout
 
 \begin_layout Enumerate
@@ -1073,175 +1391,6 @@ Work on your model analysis project
 
 \begin_layout Enumerate
 Feedback on model project
-\end_layout
-
-\end_deeper
-\begin_layout Section
-Infrastructure
-\end_layout
-
-\begin_layout Frame
-\begin_inset Argument 4
-status open
-
-\begin_layout Plain Layout
-Time, place and exam
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->
-\end_layout
-
-\end_inset
-
-
-\series bold
-Time and place:
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-
-\series bold
-Lectures: 
-\series default
-Monday 15-17
-\end_layout
-
-\begin_layout Enumerate
-
-\series bold
-Classes:
-\series default
- Tuesday/Wednesday 15-17
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->
-\end_layout
-
-\end_inset
-
-
-\series bold
-Exam requirements 
-\series default
-(
-\begin_inset CommandInset href
-LatexCommand href
-name "deadlines"
-target "https://docs.google.com/spreadsheets/d/1f9qFOIj1gybzNqqtVoj3m1M-n7AKYesdkxSPKERy2Qw/edit#gid=1691428044"
-literal "false"
-
-\end_inset
-
-):
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-Basic programming test (on 
-\begin_inset CommandInset href
-LatexCommand href
-name "DataCamp.com"
-target "https://www.datacamp.com/"
-literal "false"
-
-\end_inset
-
-, see e-mail)
-\end_layout
-
-\begin_layout Enumerate
-Data analysis project
-\end_layout
-
-\begin_layout Enumerate
-2x useful peer feedback on data analysis projects
-\end_layout
-
-\begin_layout Enumerate
-Model analysis project
-\end_layout
-
-\begin_layout Enumerate
-2x useful peer feedback on model analysis projects
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->
-\end_layout
-
-\end_inset
-
-
-\series bold
-Exam: 
-\series default
-Data and model analysis projects + exam problem
-\end_layout
-
-\begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->
-\end_layout
-
-\end_inset
-
-
-\series bold
-Grading:
-\series default
- Pass or fail
-\end_layout
-
-\begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->
-\end_layout
-
-\end_inset
-
-
-\series bold
-Groups: 
-\series default
-All projects can be done in 
-\emph on
-fixed
-\emph default
- groups (maximum of 3)
 \end_layout
 
 \end_deeper
@@ -1271,48 +1420,40 @@ GitHub.com (code hosting platform)
 
 \begin_deeper
 \begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<1->
-\end_layout
-
-\end_inset
-
 
 \series bold
-Our organization: 
-\series default
-NumEconCopehagen 
+\bar under
+All course materials will be shared on GitHub
 \end_layout
 
-\begin_deeper
-\begin_layout Standard
+\begin_layout Itemize
+
+\series bold
+Organization: 
+\series default
+
 \begin_inset CommandInset href
 LatexCommand href
-name "github.com/NumEconCopenhagen"
+name "www.github.com/NumEconCopenhagen"
 target "https://github.com/NumEconCopenhagen/"
 literal "false"
 
 \end_inset
 
 
-\begin_inset VSpace 2mm
+\begin_inset VSpace 1mm
 \end_inset
 
 
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-<2->
+[]
 \end_layout
 
 \end_inset
@@ -1350,10 +1491,10 @@ projects-2019-YOURGROUPNAME
 \begin_layout Enumerate
 
 \series bold
-NumEcon: 
+snippets-2019: 
 \series default
-Python package
-\begin_inset VSpace 2mm
+your own examples
+\begin_inset VSpace 1mm
 \end_inset
 
 
@@ -1361,21 +1502,41 @@ Python package
 
 \end_deeper
 \begin_layout Itemize
-\begin_inset ERT
-status open
 
-\begin_layout Plain Layout
-
-<2->
+\series bold
+Git: 
+\series default
+A version-control system for tracking changes in computer files and coordinating
+ work on those files among multiple people.
 \end_layout
 
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula $\Rightarrow$
 \end_inset
 
+ integrated in VSCode
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+ we will talk more about it in week 5
+\begin_inset VSpace 1mm
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 
 \series bold
 Note:
 \series default
- Everything will be public
+ You can always download the content of a GitHub repository without using
+ git.
 \end_layout
 
 \end_deeper
@@ -1384,6 +1545,10 @@ Note:
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Work-flow
 \end_layout
 
 \begin_layout Frame
@@ -1417,18 +1582,6 @@ Lectures:
 \series default
 \emph on
 Listen to me, ask questions and solve small tasks
-\emph default
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-notebooks: _clean
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_deeper
@@ -1446,10 +1599,6 @@ Live coding
 
 \begin_layout Enumerate
 Presentation of problem set
-\begin_inset VSpace 2mm
-\end_inset
-
-
 \end_layout
 
 \end_deeper
@@ -1487,10 +1636,6 @@ Find the error
 
 \begin_layout Enumerate
 Solve full problem
-\begin_inset VSpace 2mm
-\end_inset
-
-
 \end_layout
 
 \end_deeper
@@ -1508,25 +1653,91 @@ status open
 
 \series bold
 In between classes and lectures: 
-\series default
-\emph on
-No curriculum to read!
-\emph default
+\end_layout
 
-\begin_inset Newline newline
+\begin_deeper
+\begin_layout Enumerate
+Go through lecture notebooks (curriculum)
+\end_layout
+
+\begin_layout Enumerate
+Solve the problem set
+\end_layout
+
+\begin_layout Enumerate
+Experiment with your own ideas
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Socrative
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Room-name:
+\series default
+ NumEcon
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Web: 
+\begin_inset CommandInset href
+LatexCommand href
+name "www.socrative.com"
+target "www.socrative.com"
+literal "false"
+
 \end_inset
 
  
-\begin_inset Formula $\Rightarrow$
+\begin_inset Formula $\rightarrow$
 \end_inset
 
- spend your time on solving the problem sets 
-\begin_inset Newline newline
-\end_inset
-
-+ experimenting with your own ideas
+ student login
 \end_layout
 
+\begin_layout Enumerate
+App: Socrative Student
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Two use-cases:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Questions with 5 possible answers (A-E)
+\end_layout
+
+\begin_layout Enumerate
+Are you done with a task? (true in true/false)
+\end_layout
+
+\end_deeper
 \end_deeper
 \begin_layout Standard
 \begin_inset Separator plain
@@ -1550,16 +1761,6 @@ Questions
 
 \begin_deeper
 \begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->
-\end_layout
-
-\end_inset
-
 
 \series bold
 Observation:
@@ -1573,16 +1774,22 @@ Observation:
 \end_layout
 
 \begin_layout Itemize
-\begin_inset ERT
-status open
 
-\begin_layout Plain Layout
-
-<+->
-\end_layout
-
+\series bold
+Everybody often forgets the correct syntax
+\series default
+ 
+\begin_inset Formula $\Rightarrow$
 \end_inset
 
+ trial-and-error and testing is central, never a single correct approach
+\begin_inset VSpace 2mm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
 
 \series bold
 Ask questions!! 
@@ -1594,74 +1801,49 @@ In the following order
 
 \begin_deeper
 \begin_layout Enumerate
-Documentation
+Look in the documentation
 \end_layout
 
 \begin_layout Enumerate
-Your group
+Talk about it in your group
 \end_layout
 
 \begin_layout Enumerate
-Your fellow students
-\end_layout
-
-\begin_layout Enumerate
-Google + Stackoverflow
-\end_layout
-
-\begin_layout Enumerate
-The teaching assistants
-\end_layout
-
-\begin_layout Enumerate
-The lecturer
-\begin_inset VSpace 2mm
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->
-\end_layout
-
-\end_inset
-
-
-\series bold
-Online forums: 
-\series default
-use 
-\series bold
-issues 
-\series default
-in 
-\series bold
-exercises-2019 
-\series default
-and 
-\series bold
-lectures-2019
-\end_layout
-
-\begin_deeper
-\begin_layout Standard
-(learn how to following this 
+Search Google + Stackoverflow [see this 
 \begin_inset CommandInset href
 LatexCommand href
 name "guide"
-target "https://github.com/NumEconCopenhagen/lectures-2019/wiki/Guide:-Using-Issues"
+target "https://numeconcopenhagen.netlify.com/guides/searching/"
 literal "false"
 
 \end_inset
 
-)
+]
+\end_layout
+
+\begin_layout Enumerate
+Ask question online using GitHub issues [see this 
+\begin_inset CommandInset href
+LatexCommand href
+name "guide"
+target "https://numeconcopenhagen.netlify.com/guides/github-issues/"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset href
+LatexCommand href
+name "example"
+target "https://github.com/NumEconCopenhagen/lectures-2019/issues"
+literal "false"
+
+\end_inset
+
+]
+\end_layout
+
+\begin_layout Standard
 \begin_inset VSpace 2mm
 \end_inset
 
@@ -1670,25 +1852,11 @@ literal "false"
 
 \end_deeper
 \begin_layout Itemize
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->
-\end_layout
-
-\end_inset
-
 
 \series bold
-Everybody often forgets the correct syntax
+Help each other!! 
 \series default
- 
-\begin_inset Formula $\Rightarrow$
-\end_inset
-
- trial-and-error and testing is central, never a single correct approach
+You will learn a lot, but remember to be constructive and polite.
 \end_layout
 
 \end_deeper
@@ -1787,7 +1955,7 @@ Apply data analysis methods
 \end_layout
 
 \begin_layout Enumerate
-Structure code project
+Structure a code project
 \end_layout
 
 \begin_layout Enumerate
@@ -1897,7 +2065,7 @@ Apply model analysis methods
 \end_layout
 
 \begin_layout Enumerate
-Structure code project
+Structure a code project
 \end_layout
 
 \begin_layout Enumerate
@@ -1926,7 +2094,7 @@ Solution (and perhaps simulation) of simple economic model
 
 \begin_layout Enumerate
 Visualization of results across e.g.
- parametrization
+ parametrizations
 \end_layout
 
 \begin_layout Enumerate
@@ -1975,7 +2143,7 @@ model_analysis_project
 \end_layout
 
 \begin_layout Section
-More Examples
+More examples
 \end_layout
 
 \begin_layout Frame
@@ -1983,7 +2151,7 @@ More Examples
 status open
 
 \begin_layout Plain Layout
-More Examples
+More examples
 \end_layout
 
 \end_inset
@@ -2011,6 +2179,112 @@ Write modules in VSCode
 
 \begin_layout Enumerate
 Run python code in VSCode
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+NumEcon
+\end_layout
+
+\begin_layout Frame
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+Vision
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Hypothesis:
+\series default
+ Teaching in all areas in economics can be improved by giving access to
+ numerical versions of the models taught
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+NumEcon: 
+\series default
+A Python package collecting:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Numerical versions of models taught at polit
+\end_layout
+
+\begin_layout Enumerate
+Other models interesting for polit students
+\end_layout
+
+\begin_layout Enumerate
+Useful code snippets and examples
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+You can contribute!
+\series default
+ Good projects and snippets can become part of NumEcon - beneficial for
+ other students (and your CV)
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Minor contributor
+\end_layout
+
+\begin_layout Enumerate
+Major contributor
 \end_layout
 
 \end_deeper
@@ -2056,30 +2330,15 @@ What you will learn in this course
 \end_layout
 
 \begin_layout Enumerate
-How you will learn it by working actively
+How you will learn it by working actively and interact with your fellow
+ students
 \end_layout
 
 \begin_layout Enumerate
 How you will qualify for and pass the exam
-\begin_inset VSpace 2mm
-\end_inset
-
-
 \end_layout
 
 \end_deeper
-\begin_layout Itemize
-
-\series bold
-Examples: 
-\series default
-Can be accessed online through 
-\series bold
-binder
-\series default
- without installing Python
-\end_layout
-
 \end_deeper
 \begin_layout Standard
 \begin_inset Separator plain
@@ -2103,6 +2362,16 @@ Your to-do list
 
 \begin_deeper
 \begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
 
 \series bold
 First priority:
@@ -2111,9 +2380,54 @@ First priority:
 \end_layout
 
 \begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
 
 \series bold
 Second priority: 
+\series default
+Try running JupyterLab in binder
+\begin_inset Newline newline
+\end_inset
+
+Go to course page click on a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+includegraphics[height=3mm]{figs/binder.pdf} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Third priority: 
 \end_layout
 
 \begin_deeper
@@ -2123,54 +2437,81 @@ Install
 Anaconda with VSCode
 \end_layout
 
-\begin_layout Enumerate
-Open a 
-\series bold
-Jupyter Notebook
-\series default
- and experiment
-\end_layout
-
-\end_deeper
-\begin_layout Enumerate
-
-\series bold
-Third priority:
-\end_layout
-
 \begin_deeper
-\begin_layout Enumerate
-Create 
-\series bold
-GitHub account
-\end_layout
-
-\begin_layout Enumerate
-Clone 
-\series bold
-exercises-2019
-\series default
- and 
-\series bold
-lectures-2019
-\end_layout
-
-\begin_layout Enumerate
-
-\series bold
-Create/join group
-\series default
- 
+\begin_layout Standard
+See the guide: 
 \begin_inset CommandInset href
 LatexCommand href
-name "here"
-target "https://classroom.github.com/g/MdOM_sOo"
+name "Installing Python and VSCode"
+target "https://numeconcopenhagen.netlify.com/guides/python-setup"
 literal "false"
 
 \end_inset
 
 
-\begin_inset VSpace 2mm
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Open 
+\series bold
+JupyterLab
+\series default
+ and experiment
+\begin_inset Newline newline
+\end_inset
+
+See the guide: 
+\begin_inset CommandInset href
+LatexCommand href
+name "Running Python in JupyterLab"
+target "https://numeconcopenhagen.netlify.com/guides/jupyterlab"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
+
+\series bold
+Fourth priority: 
+\series default
+Read the guides on:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset CommandInset href
+LatexCommand href
+name "Searching for answers using Google and Stackoverflow"
+target "https://numeconcopenhagen.netlify.com/guides/searching/"
+literal "false"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset href
+LatexCommand href
+name "Asking questions using GitHub issues"
+target "https://numeconcopenhagen.netlify.com/guides/github-issues/"
+literal "false"
+
 \end_inset
 
 
@@ -2178,11 +2519,21 @@ literal "false"
 
 \end_deeper
 \begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<+->
+\end_layout
+
+\end_inset
+
 
 \series bold
 Next time: 
 \series default
-Fundamental introduction to Python
+Introduction to the fundamental of Python
 \end_layout
 
 \end_deeper
