@@ -6,6 +6,8 @@ COPY . ${HOME}
 
 USER root
 
+RUN fix-permissions ${HOME}
+
 # Install conda deps
 RUN if [ -e environment.yml ]; then \
       conda env update -f environment.yml; \
