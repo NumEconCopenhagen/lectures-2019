@@ -1,4 +1,4 @@
-FROM numeconcopenhagen/jupyterlab-docker:f4dff96de62b01d3768e280bf609cfa25c8584c3
+FROM numeconcopenhagen/jupyterlab-docker:112b5ebeda5e9ddb4ac4656f7c445da93fc65d2d
 # The tag is the last commit tag in jupyterlab-docker
 
 # Make sure the contents of our repo are in ${HOME} 
