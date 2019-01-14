@@ -1,4 +1,4 @@
-FROM numeconcopenhagen/jupyterlab-docker:f1a3abd475ba08339c56b878fc443796a834df13
+FROM numeconcopenhagen/jupyterlab-docker:c4ed6c34bbae043c85281136ee574f1618f547fe
 
 # Make sure the contents of our repo are in ${HOME} 
 COPY . ${HOME}
