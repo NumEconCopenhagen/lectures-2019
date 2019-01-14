@@ -4,6 +4,8 @@ FROM numeconcopenhagen/jupyterlab-docker:605469bcf8fcb84bd42e044e1a91e6b475a03f1
 # Make sure the contents of our repo are in ${HOME} 
 COPY . ${HOME}
 
+USER root
+
 # Install conda deps
 RUN if [ -e environment.yml ]; then \
       conda env update -f environment.yml; \
