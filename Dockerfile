@@ -1,8 +1,12 @@
-FROM numeconcopenhagen/jupyterlab-docker:f4dff96de62b01d3768e280bf609cfa25c8584c3
+FROM numeconcopenhagen/jupyterlab-docker:605469bcf8fcb84bd42e044e1a91e6b475a03f17
 # The tag is the last commit tag in jupyterlab-docker
 
 # Make sure the contents of our repo are in ${HOME} 
 COPY . ${HOME}
+
+USER root
+
+RUN fix-permissions ${HOME}
 
 # Install conda deps
 RUN if [ -e environment.yml ]; then \
