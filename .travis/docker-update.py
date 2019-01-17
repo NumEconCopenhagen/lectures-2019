@@ -19,6 +19,6 @@ if __name__ == "__main__":
             content = f1.read()
         with open('Dockerfile', 'w') as f2:
             f2.write(content.replace(docker_sha, jupyterlab_sha))
-        print(f"The new tag is: {jupyterlab_sha}"
+        print(f"The new tag is: {jupyterlab_sha}")
     else:
         print("The tag is update to date")
