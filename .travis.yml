@@ -1,9 +1,18 @@
 language: python
 python: 3.6
+env:
+  - global:
+    - USEREMAIL="travis@travis-ci.org"
+    - USER="Travis CI"
+    - GITHUBUSER="numeconcopenhagen"
+    - REPO="lecture-2019"
+    - GH_REPO="github.com/${USER}/${REPO}.git"
 install:
   - pip install requests
 script:
   - python .travis/docker-update.py
-
+  - if git diff-index --quiet HEAD --; then
+      git status
+    fi
 notifications:
   email: false
