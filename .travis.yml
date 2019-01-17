@@ -1,10 +1,9 @@
-language: generic
-
-deploy:
-  provider: script
-  script: bash .travis/deploy.sh
-  on:
-    all_branches: true
+language: python
+python: 3.6
+install:
+  - pip install requests
+script:
+  - bash .travis/deploy.sh
 
 notifications:
   email: false
