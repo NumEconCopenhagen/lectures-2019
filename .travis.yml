@@ -1,6 +1,6 @@
 language: generic
 deploy:
   provider: script
-  script: bash .deploy.sh
+  script: bash .travis/deploy.sh
   on:
     all_branches: true
