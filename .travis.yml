@@ -3,7 +3,7 @@ python: 3.6
 install:
   - pip install requests
 script:
-  - bash .travis/deploy.sh
+  - python .travis/docker-update.py
 
 notifications:
   email: false
