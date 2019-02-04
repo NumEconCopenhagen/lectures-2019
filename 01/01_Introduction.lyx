@@ -314,10 +314,6 @@ end{tikzpicture}
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
 
 \backslash
 end{frame}
@@ -657,7 +653,8 @@ write code
 status open
 
 \begin_layout Plain Layout
-understanding the math is important for checking the results
+understanding the math is important for checking the results, results can
+ seem to come from a black box
 \end_layout
 
 \end_inset
@@ -860,6 +857,16 @@ First generation:
 \series default
 All of your feedback is very important for optimizing and improving the
  course!
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+I don't know, what you don't know
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -1208,7 +1215,7 @@ Single document (Crtl+Shift+D)
 \end_layout
 
 \begin_layout Enumerate
-Presentaiton mode (Crtl+Shift+P)
+Presentation mode (Crtl+Shift+P)
 \end_layout
 
 \begin_layout Enumerate
@@ -1220,7 +1227,7 @@ Full screen (F11)
 \end_layout
 
 \begin_layout Enumerate
-Zoom
+Zoom to 150
 \end_layout
 
 \end_inset
@@ -2005,7 +2012,7 @@ note: this is fully workshop based
 
 \begin_deeper
 \begin_layout Enumerate
-Solve tasks and puzzles
+Solve tasks and problems
 \end_layout
 
 \begin_layout Enumerate
@@ -2185,6 +2192,16 @@ Everybody often forgets the correct syntax
 \end_inset
 
  trial-and-error and testing is central, never a single correct approach
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+you can never destroy anything
+\end_layout
+
+\end_inset
+
+
 \begin_inset VSpace 2mm
 \end_inset
 
@@ -2878,6 +2895,16 @@ status open
 First priority:
 \series default
  Login to DataCamp (see info in e-mail)
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+you must hit the ground running
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -2899,7 +2926,7 @@ Try running JupyterLab in binder
 \begin_inset Newline newline
 \end_inset
 
-Go to course page click on a 
+Go to course page, click on a 
 \begin_inset ERT
 status open
 
