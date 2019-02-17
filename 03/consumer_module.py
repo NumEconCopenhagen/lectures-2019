@@ -65,8 +65,7 @@ class consumer:
         self.x1 = sol.x[0]
         self.x2 = sol.x[1]
         self.u = self.u_func(self.x1,self.x2)
-
-        
+ 
     # find indifference curves
     def find_indifference_curves(self):
         
