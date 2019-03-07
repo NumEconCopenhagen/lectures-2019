@@ -1,0 +1,3321 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Summary"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Today, we will learn: \n",
+    "\n",
+    "* `df.loc[]`\n",
+    "* `df.set_index()` and `df.reset_index()`\n",
+    "* `df.copy()`\n",
+    "* `df.rename(columns=DICT)`\n",
+    "* `del df['var']`\n",
+    "* `df.head()`\n",
+    "* `pd.wide_to_long()`\n",
+    "* `df.var.isnull()`\n",
+    "* `df.var.sum()`\n",
+    "* `pd.read_excel()`\n",
+    "* `df.to_excel()`"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "toc-hr-collapsed": false
+   },
+   "source": [
+    "# Pandas data frames "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In Pandas, the fundamental object of interest is a pandas dataframe. For example, "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>inc</th>\n",
+       "      <th>name</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>11.7</td>\n",
+       "      <td>Vitus</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>13.9</td>\n",
+       "      <td>Maximilian</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>3</td>\n",
+       "      <td>14.6</td>\n",
+       "      <td>Bo-Bob</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   id   inc        name\n",
+       "0   1  11.7       Vitus\n",
+       "1   2  13.9  Maximilian\n",
+       "2   3  14.6      Bo-Bob"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X = pd.DataFrame(data = [[1,11.7,'Vitus'],[2,13.9,'Maximilian'],[3,14.6,'Bo-Bob']], columns=['id','inc','name'])\n",
+    "X"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A dataframe is essentially a matrix. \n",
+    "* Rows = observations \n",
+    "* Columns = variables "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Indexing (\"subsetting\") \n",
+    "\n",
+    "Choosing a subset of the rows and/or columns of a dataframe is known as \"indexing\". All pandas dataframes are born with the method `loc[]`. \n",
+    "* `df.loc[df['year'] == 2002, :]` selects the rows where the variable `year` is equal to 2002 and all columns (indicated by `:`)\n",
+    "    * *Alternatively*,  `df[df['year'] == 2002]`\n",
+    "* `df.loc[:, ['year']]` selects all rows (indicated by `:`) but only the column (variable) `year`. \n",
+    "    * *Alternatively*,  `df['year']`\n",
+    "* `df.loc[df['year'] == 2002, ['name']]` selects the variable `name` and shows the rows where `year` is equal to 2002. \n",
+    "    * *Alternatively*, `df[df['year']==2002]['name']`\n",
+    "    \n",
+    "In general, the syntax is `df.loc[CONDITION, [VARLIST]]`, where `CONDITION` is a vector of logical statements with the same length as the number of rows in the dataframe. \n",
+    "\n",
+    "**General rule:** Always use `df.loc` for assignments; you can use the alternatives if you are merely looking/plotting/etc."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>name</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Maximilian</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Bo-Bob</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "         name\n",
+       "1  Maximilian\n",
+       "2      Bo-Bob"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X.loc[X.id > 1, ['name']]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Adding a variable\n",
+    "\n",
+    "Variables are added with `df['newvar'] = SOMETHING`. **Note:** You cannot write `df.newvar = SOMETHING`. Some of you will forget. I promise. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>inc</th>\n",
+       "      <th>name</th>\n",
+       "      <th>year</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>11.7</td>\n",
+       "      <td>Vitus</td>\n",
+       "      <td>2003</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>13.9</td>\n",
+       "      <td>Maximilian</td>\n",
+       "      <td>2005</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>3</td>\n",
+       "      <td>14.6</td>\n",
+       "      <td>Bo-Bob</td>\n",
+       "      <td>2010</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   id   inc        name  year\n",
+       "0   1  11.7       Vitus  2003\n",
+       "1   2  13.9  Maximilian  2005\n",
+       "2   3  14.6      Bo-Bob  2010"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X['year'] = [2003, 2005, 2010]\n",
+    "X"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>inc</th>\n",
+       "      <th>name</th>\n",
+       "      <th>year</th>\n",
+       "      <th>inc_trending</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>11.7</td>\n",
+       "      <td>Vitus</td>\n",
+       "      <td>2003</td>\n",
+       "      <td>12.7015</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>13.9</td>\n",
+       "      <td>Maximilian</td>\n",
+       "      <td>2005</td>\n",
+       "      <td>14.9025</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>3</td>\n",
+       "      <td>14.6</td>\n",
+       "      <td>Bo-Bob</td>\n",
+       "      <td>2010</td>\n",
+       "      <td>15.6050</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   id   inc        name  year  inc_trending\n",
+       "0   1  11.7       Vitus  2003       12.7015\n",
+       "1   2  13.9  Maximilian  2005       14.9025\n",
+       "2   3  14.6      Bo-Bob  2010       15.6050"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X['inc_trending'] = X['inc'] + X['year']/2000\n",
+    "X"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## The index\n",
+    "\n",
+    "The first column in the dataset is referred to as the `index` of the dataframe. If you haven't done anything, it is just `[0, 1, 2, ....]`. If you specify integers instead of a vector of logicals into `df.loc[]` (or directly into `df[]`), then pandas will find the rows where the index is equal to the values that you specify"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>inc</th>\n",
+       "      <th>name</th>\n",
+       "      <th>year</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>11.7</td>\n",
+       "      <td>Vitus</td>\n",
+       "      <td>2003</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>13.9</td>\n",
+       "      <td>Maximilian</td>\n",
+       "      <td>2005</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>3</td>\n",
+       "      <td>14.6</td>\n",
+       "      <td>Bo-Bob</td>\n",
+       "      <td>2010</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   id   inc        name  year\n",
+       "0   1  11.7       Vitus  2003\n",
+       "1   2  13.9  Maximilian  2005\n",
+       "2   3  14.6      Bo-Bob  2010"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "id               2\n",
+       "inc           13.9\n",
+       "name    Maximilian\n",
+       "year          2005\n",
+       "Name: 1, dtype: object"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X.loc[1, :]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In general, we do not want to look up using the index. If you want to see the top, use `df.head()`. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>inc</th>\n",
+       "      <th>name</th>\n",
+       "      <th>year</th>\n",
+       "      <th>inc_trending</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>11.7</td>\n",
+       "      <td>Vitus</td>\n",
+       "      <td>2003</td>\n",
+       "      <td>12.7015</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>13.9</td>\n",
+       "      <td>Maximilian</td>\n",
+       "      <td>2005</td>\n",
+       "      <td>14.9025</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   id   inc        name  year  inc_trending\n",
+       "0   1  11.7       Vitus  2003       12.7015\n",
+       "1   2  13.9  Maximilian  2005       14.9025"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X.head(2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Assigning a different index\n",
+    "\n",
+    "You can use many other things as indexes. This can sometimes be useful, but it is not necessary. \n",
+    "\n",
+    "For example the name: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>inc</th>\n",
+       "      <th>year</th>\n",
+       "      <th>inc_trending</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>name</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>Vitus</th>\n",
+       "      <td>1</td>\n",
+       "      <td>11.7</td>\n",
+       "      <td>2003</td>\n",
+       "      <td>12.7015</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Maximilian</th>\n",
+       "      <td>2</td>\n",
+       "      <td>13.9</td>\n",
+       "      <td>2005</td>\n",
+       "      <td>14.9025</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Bo-Bob</th>\n",
+       "      <td>3</td>\n",
+       "      <td>14.6</td>\n",
+       "      <td>2010</td>\n",
+       "      <td>15.6050</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "            id   inc  year  inc_trending\n",
+       "name                                    \n",
+       "Vitus        1  11.7  2003       12.7015\n",
+       "Maximilian   2  13.9  2005       14.9025\n",
+       "Bo-Bob       3  14.6  2010       15.6050"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X2 = X.set_index('name') \n",
+    "X2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "id         1.0\n",
+       "inc       11.7\n",
+       "year    2003.0\n",
+       "Name: Vitus, dtype: float64"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X2.loc['Vitus']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**XXX Series vs. frame XXX**"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Assignments to a subset of rows\n",
+    "\n",
+    "Use a logical statement to select a subset of rows. Your RHS must then either be \n",
+    "* A single value (all rows are set to this) \n",
+    "* A list of values with same length as the number of selected rows.  "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>inc</th>\n",
+       "      <th>name</th>\n",
+       "      <th>year</th>\n",
+       "      <th>inc_trending</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>11.7</td>\n",
+       "      <td>Vitus</td>\n",
+       "      <td>2003</td>\n",
+       "      <td>12.7015</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>13.9</td>\n",
+       "      <td>Maximilian</td>\n",
+       "      <td>2005</td>\n",
+       "      <td>14.9025</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>3</td>\n",
+       "      <td>14.6</td>\n",
+       "      <td>Bo-Bob</td>\n",
+       "      <td>2010</td>\n",
+       "      <td>15.6050</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   id   inc        name  year  inc_trending\n",
+       "0   1  11.7       Vitus  2003       12.7015\n",
+       "1   2  13.9  Maximilian  2005       14.9025\n",
+       "2   3  14.6      Bo-Bob  2010       15.6050"
+      ]
+     },
+     "execution_count": 40,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>inc</th>\n",
+       "      <th>name</th>\n",
+       "      <th>year</th>\n",
+       "      <th>inc_trending</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>11.7</td>\n",
+       "      <td>hej</td>\n",
+       "      <td>2003</td>\n",
+       "      <td>12.7015</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>13.9</td>\n",
+       "      <td>hej</td>\n",
+       "      <td>2005</td>\n",
+       "      <td>14.9025</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>3</td>\n",
+       "      <td>14.6</td>\n",
+       "      <td>Bo-Bob</td>\n",
+       "      <td>2010</td>\n",
+       "      <td>15.6050</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   id   inc    name  year  inc_trending\n",
+       "0   1  11.7     hej  2003       12.7015\n",
+       "1   2  13.9     hej  2005       14.9025\n",
+       "2   3  14.6  Bo-Bob  2010       15.6050"
+      ]
+     },
+     "execution_count": 41,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X2 = X.copy()\n",
+    "\n",
+    "X2.loc[X2['id'] <= 2, ['name']] = 'hej'\n",
+    "X2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 50,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>id</th>\n",
+       "      <th>inc</th>\n",
+       "      <th>name</th>\n",
+       "      <th>year</th>\n",
+       "      <th>inc_trending</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>11.7</td>\n",
+       "      <td>Bib</td>\n",
+       "      <td>2003</td>\n",
+       "      <td>12.7015</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>13.9</td>\n",
+       "      <td>Peter</td>\n",
+       "      <td>2005</td>\n",
+       "      <td>14.9025</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>3</td>\n",
+       "      <td>14.6</td>\n",
+       "      <td>Bo-Bob</td>\n",
+       "      <td>2010</td>\n",
+       "      <td>15.6050</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   id   inc    name  year  inc_trending\n",
+       "0   1  11.7     Bib  2003       12.7015\n",
+       "1   2  13.9   Peter  2005       14.9025\n",
+       "2   3  14.6  Bo-Bob  2010       15.6050"
+      ]
+     },
+     "execution_count": 50,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X3 = X.copy()\n",
+    "\n",
+    "X3.loc[(X3['name'] == 'Vitus') | (X3['year'] == 2005), ['name']] = ['Bib', 'Peter']\n",
+    "X3"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Data types\n",
+    "\n",
+    "When you select an individual variable, it has the data type `series`. Some functions work on a pandas series (e.g. most numpy functions), but some only work on numpy arrays (e.g. scipy.stats.kurtosis). Therefore, it is nice to extract the underlying numpy objects: \n",
+    "* `df`: pandas dataframe \n",
+    "* `df['variable']`: pandas series \n",
+    "* `df['variabe'].values`: Numpy array"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 101,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "pandas.core.frame.DataFrame"
+      ]
+     },
+     "execution_count": 101,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "type(X) "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 102,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "pandas.core.series.Series"
+      ]
+     },
+     "execution_count": 102,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "type(X['year'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 103,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "numpy.ndarray"
+      ]
+     },
+     "execution_count": 103,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "type(X['year'].values)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "toc-hr-collapsed": false
+   },
+   "source": [
+    "# Reading and writing data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 99,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['medstat',\n",
+       " 'areal.xlsx',\n",
+       " 'INDKP107.xlsx',\n",
+       " 'INDKP107_tall.csv',\n",
+       " '.DS_Store',\n",
+       " 'house_prices',\n",
+       " 'RAS200.xlsx',\n",
+       " 'area.csv',\n",
+       " 'RAS200_tall.csv']"
+      ]
+     },
+     "execution_count": 99,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# next, we need to make sure that we have the \"data\" subfolder and that it has the datasets we need \n",
+    "# print contents of the \"data\" subfolder. \n",
+    "import os \n",
+    "os.listdir('./data')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Reading in data\n",
+    "\n",
+    "Pandas offers a lot of facilities for reading and writing to different formats. The functions have logical names: \n",
+    "* CSV: `pd.read_csv()`\n",
+    "* SAS: `pd.read_sas()`\n",
+    "* Excel: `pd.read_excel()`\n",
+    "* Stata: `pd.read_stata()`\n",
+    "\n",
+    "Whenever we look at larger dataframes, we will be using `df.head(10)` to inspect the first 10 rows, or `df.sample(10)` to look at 10 random rows (when the first 10 are special, for example). "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 104,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Example: raw download from DST\n",
+    "# NOTE: the file must be in a sub folder \"data\" to the folder where jupyter was launched\n",
+    "fname = './data/RAS200.xlsx'"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 141,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Erhvervs- og beskæftigelsesfrekvenser (ultimo november) efter frekvens, køn, alder, herkomst, område og tid</th>\n",
+       "      <th>Unnamed: 1</th>\n",
+       "      <th>Unnamed: 2</th>\n",
+       "      <th>Unnamed: 3</th>\n",
+       "      <th>Unnamed: 4</th>\n",
+       "      <th>Unnamed: 5</th>\n",
+       "      <th>Unnamed: 6</th>\n",
+       "      <th>Unnamed: 7</th>\n",
+       "      <th>Unnamed: 8</th>\n",
+       "      <th>Unnamed: 9</th>\n",
+       "      <th>Unnamed: 10</th>\n",
+       "      <th>Unnamed: 11</th>\n",
+       "      <th>Unnamed: 12</th>\n",
+       "      <th>Unnamed: 13</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Enhed: pct.</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>2008.0</td>\n",
+       "      <td>2009.0</td>\n",
+       "      <td>2010.0</td>\n",
+       "      <td>2011.0</td>\n",
+       "      <td>2012.0</td>\n",
+       "      <td>2013.0</td>\n",
+       "      <td>2014.0</td>\n",
+       "      <td>2015.0</td>\n",
+       "      <td>2016.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Beskæftigelsesfrekvens</td>\n",
+       "      <td>I alt</td>\n",
+       "      <td>Alder i alt</td>\n",
+       "      <td>I alt</td>\n",
+       "      <td>Hele landet</td>\n",
+       "      <td>76.0</td>\n",
+       "      <td>72.8</td>\n",
+       "      <td>72.1</td>\n",
+       "      <td>71.8</td>\n",
+       "      <td>71.3</td>\n",
+       "      <td>71.3</td>\n",
+       "      <td>71.6</td>\n",
+       "      <td>72.1</td>\n",
+       "      <td>72.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Region Hovedstaden</td>\n",
+       "      <td>75.8</td>\n",
+       "      <td>73.3</td>\n",
+       "      <td>72.6</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>72.2</td>\n",
+       "      <td>72.3</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>73.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Landsdel Byen København</td>\n",
+       "      <td>73.4</td>\n",
+       "      <td>71.0</td>\n",
+       "      <td>70.5</td>\n",
+       "      <td>70.5</td>\n",
+       "      <td>70.4</td>\n",
+       "      <td>70.6</td>\n",
+       "      <td>70.9</td>\n",
+       "      <td>71.6</td>\n",
+       "      <td>72.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>København</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>69.7</td>\n",
+       "      <td>69.6</td>\n",
+       "      <td>69.4</td>\n",
+       "      <td>69.7</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>70.8</td>\n",
+       "      <td>71.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Frederiksberg</td>\n",
+       "      <td>75.6</td>\n",
+       "      <td>73.7</td>\n",
+       "      <td>72.7</td>\n",
+       "      <td>72.8</td>\n",
+       "      <td>73.0</td>\n",
+       "      <td>73.3</td>\n",
+       "      <td>73.5</td>\n",
+       "      <td>74.0</td>\n",
+       "      <td>74.7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Dragør</td>\n",
+       "      <td>80.5</td>\n",
+       "      <td>78.8</td>\n",
+       "      <td>78.5</td>\n",
+       "      <td>78.5</td>\n",
+       "      <td>78.7</td>\n",
+       "      <td>78.7</td>\n",
+       "      <td>78.9</td>\n",
+       "      <td>78.6</td>\n",
+       "      <td>79.2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Tårnby</td>\n",
+       "      <td>79.0</td>\n",
+       "      <td>76.3</td>\n",
+       "      <td>75.4</td>\n",
+       "      <td>75.8</td>\n",
+       "      <td>75.4</td>\n",
+       "      <td>75.8</td>\n",
+       "      <td>75.7</td>\n",
+       "      <td>76.5</td>\n",
+       "      <td>77.4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Landsdel Københavns omegn</td>\n",
+       "      <td>77.1</td>\n",
+       "      <td>74.2</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>73.0</td>\n",
+       "      <td>72.4</td>\n",
+       "      <td>72.4</td>\n",
+       "      <td>72.6</td>\n",
+       "      <td>73.3</td>\n",
+       "      <td>73.8</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "  Erhvervs- og beskæftigelsesfrekvenser (ultimo november) efter frekvens, køn, alder, herkomst, område og tid  \\\n",
+       "0                                        Enhed: pct.                                                            \n",
+       "1                                                NaN                                                            \n",
+       "2                             Beskæftigelsesfrekvens                                                            \n",
+       "3                                                NaN                                                            \n",
+       "4                                                NaN                                                            \n",
+       "5                                                NaN                                                            \n",
+       "6                                                NaN                                                            \n",
+       "7                                                NaN                                                            \n",
+       "8                                                NaN                                                            \n",
+       "9                                                NaN                                                            \n",
+       "\n",
+       "  Unnamed: 1   Unnamed: 2 Unnamed: 3                 Unnamed: 4  Unnamed: 5  \\\n",
+       "0        NaN          NaN        NaN                        NaN         NaN   \n",
+       "1        NaN          NaN        NaN                        NaN      2008.0   \n",
+       "2      I alt  Alder i alt      I alt                Hele landet        76.0   \n",
+       "3        NaN          NaN        NaN         Region Hovedstaden        75.8   \n",
+       "4        NaN          NaN        NaN    Landsdel Byen København        73.4   \n",
+       "5        NaN          NaN        NaN                  København        72.5   \n",
+       "6        NaN          NaN        NaN              Frederiksberg        75.6   \n",
+       "7        NaN          NaN        NaN                     Dragør        80.5   \n",
+       "8        NaN          NaN        NaN                     Tårnby        79.0   \n",
+       "9        NaN          NaN        NaN  Landsdel Københavns omegn        77.1   \n",
+       "\n",
+       "   Unnamed: 6  Unnamed: 7  Unnamed: 8  Unnamed: 9  Unnamed: 10  Unnamed: 11  \\\n",
+       "0         NaN         NaN         NaN         NaN          NaN          NaN   \n",
+       "1      2009.0      2010.0      2011.0      2012.0       2013.0       2014.0   \n",
+       "2        72.8        72.1        71.8        71.3         71.3         71.6   \n",
+       "3        73.3        72.6        72.5        72.2         72.3         72.5   \n",
+       "4        71.0        70.5        70.5        70.4         70.6         70.9   \n",
+       "5        70.0        69.7        69.6        69.4         69.7         70.0   \n",
+       "6        73.7        72.7        72.8        73.0         73.3         73.5   \n",
+       "7        78.8        78.5        78.5        78.7         78.7         78.9   \n",
+       "8        76.3        75.4        75.8        75.4         75.8         75.7   \n",
+       "9        74.2        73.2        73.0        72.4         72.4         72.6   \n",
+       "\n",
+       "   Unnamed: 12  Unnamed: 13  \n",
+       "0          NaN          NaN  \n",
+       "1       2015.0       2016.0  \n",
+       "2         72.1         72.8  \n",
+       "3         73.2         73.8  \n",
+       "4         71.6         72.3  \n",
+       "5         70.8         71.5  \n",
+       "6         74.0         74.7  \n",
+       "7         78.6         79.2  \n",
+       "8         76.5         77.4  \n",
+       "9         73.3         73.8  "
+      ]
+     },
+     "execution_count": 141,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# First attempt\n",
+    "pd.read_excel(fname).head(10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Getting the right columns and rows"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Clearly, we should skip some of the first three rows and some of the first four columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 142,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Unnamed: 0</th>\n",
+       "      <th>Unnamed: 1</th>\n",
+       "      <th>Unnamed: 2</th>\n",
+       "      <th>Unnamed: 3</th>\n",
+       "      <th>Unnamed: 4</th>\n",
+       "      <th>2008</th>\n",
+       "      <th>2009</th>\n",
+       "      <th>2010</th>\n",
+       "      <th>2011</th>\n",
+       "      <th>2012</th>\n",
+       "      <th>2013</th>\n",
+       "      <th>2014</th>\n",
+       "      <th>2015</th>\n",
+       "      <th>2016</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Beskæftigelsesfrekvens</td>\n",
+       "      <td>I alt</td>\n",
+       "      <td>Alder i alt</td>\n",
+       "      <td>I alt</td>\n",
+       "      <td>Hele landet</td>\n",
+       "      <td>76.0</td>\n",
+       "      <td>72.8</td>\n",
+       "      <td>72.1</td>\n",
+       "      <td>71.8</td>\n",
+       "      <td>71.3</td>\n",
+       "      <td>71.3</td>\n",
+       "      <td>71.6</td>\n",
+       "      <td>72.1</td>\n",
+       "      <td>72.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Region Hovedstaden</td>\n",
+       "      <td>75.8</td>\n",
+       "      <td>73.3</td>\n",
+       "      <td>72.6</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>72.2</td>\n",
+       "      <td>72.3</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>73.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Landsdel Byen København</td>\n",
+       "      <td>73.4</td>\n",
+       "      <td>71.0</td>\n",
+       "      <td>70.5</td>\n",
+       "      <td>70.5</td>\n",
+       "      <td>70.4</td>\n",
+       "      <td>70.6</td>\n",
+       "      <td>70.9</td>\n",
+       "      <td>71.6</td>\n",
+       "      <td>72.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>København</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>69.7</td>\n",
+       "      <td>69.6</td>\n",
+       "      <td>69.4</td>\n",
+       "      <td>69.7</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>70.8</td>\n",
+       "      <td>71.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Frederiksberg</td>\n",
+       "      <td>75.6</td>\n",
+       "      <td>73.7</td>\n",
+       "      <td>72.7</td>\n",
+       "      <td>72.8</td>\n",
+       "      <td>73.0</td>\n",
+       "      <td>73.3</td>\n",
+       "      <td>73.5</td>\n",
+       "      <td>74.0</td>\n",
+       "      <td>74.7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Dragør</td>\n",
+       "      <td>80.5</td>\n",
+       "      <td>78.8</td>\n",
+       "      <td>78.5</td>\n",
+       "      <td>78.5</td>\n",
+       "      <td>78.7</td>\n",
+       "      <td>78.7</td>\n",
+       "      <td>78.9</td>\n",
+       "      <td>78.6</td>\n",
+       "      <td>79.2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Tårnby</td>\n",
+       "      <td>79.0</td>\n",
+       "      <td>76.3</td>\n",
+       "      <td>75.4</td>\n",
+       "      <td>75.8</td>\n",
+       "      <td>75.4</td>\n",
+       "      <td>75.8</td>\n",
+       "      <td>75.7</td>\n",
+       "      <td>76.5</td>\n",
+       "      <td>77.4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Landsdel Københavns omegn</td>\n",
+       "      <td>77.1</td>\n",
+       "      <td>74.2</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>73.0</td>\n",
+       "      <td>72.4</td>\n",
+       "      <td>72.4</td>\n",
+       "      <td>72.6</td>\n",
+       "      <td>73.3</td>\n",
+       "      <td>73.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Albertslund</td>\n",
+       "      <td>73.1</td>\n",
+       "      <td>69.2</td>\n",
+       "      <td>67.5</td>\n",
+       "      <td>67.4</td>\n",
+       "      <td>66.5</td>\n",
+       "      <td>67.0</td>\n",
+       "      <td>67.4</td>\n",
+       "      <td>68.7</td>\n",
+       "      <td>68.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>Ballerup</td>\n",
+       "      <td>75.9</td>\n",
+       "      <td>72.9</td>\n",
+       "      <td>71.9</td>\n",
+       "      <td>72.0</td>\n",
+       "      <td>71.4</td>\n",
+       "      <td>71.0</td>\n",
+       "      <td>71.8</td>\n",
+       "      <td>72.8</td>\n",
+       "      <td>73.6</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "               Unnamed: 0 Unnamed: 1   Unnamed: 2 Unnamed: 3  \\\n",
+       "0  Beskæftigelsesfrekvens      I alt  Alder i alt      I alt   \n",
+       "1                     NaN        NaN          NaN        NaN   \n",
+       "2                     NaN        NaN          NaN        NaN   \n",
+       "3                     NaN        NaN          NaN        NaN   \n",
+       "4                     NaN        NaN          NaN        NaN   \n",
+       "5                     NaN        NaN          NaN        NaN   \n",
+       "6                     NaN        NaN          NaN        NaN   \n",
+       "7                     NaN        NaN          NaN        NaN   \n",
+       "8                     NaN        NaN          NaN        NaN   \n",
+       "9                     NaN        NaN          NaN        NaN   \n",
+       "\n",
+       "                  Unnamed: 4  2008  2009  2010  2011  2012  2013  2014  2015  \\\n",
+       "0                Hele landet  76.0  72.8  72.1  71.8  71.3  71.3  71.6  72.1   \n",
+       "1         Region Hovedstaden  75.8  73.3  72.6  72.5  72.2  72.3  72.5  73.2   \n",
+       "2    Landsdel Byen København  73.4  71.0  70.5  70.5  70.4  70.6  70.9  71.6   \n",
+       "3                  København  72.5  70.0  69.7  69.6  69.4  69.7  70.0  70.8   \n",
+       "4              Frederiksberg  75.6  73.7  72.7  72.8  73.0  73.3  73.5  74.0   \n",
+       "5                     Dragør  80.5  78.8  78.5  78.5  78.7  78.7  78.9  78.6   \n",
+       "6                     Tårnby  79.0  76.3  75.4  75.8  75.4  75.8  75.7  76.5   \n",
+       "7  Landsdel Københavns omegn  77.1  74.2  73.2  73.0  72.4  72.4  72.6  73.3   \n",
+       "8                Albertslund  73.1  69.2  67.5  67.4  66.5  67.0  67.4  68.7   \n",
+       "9                   Ballerup  75.9  72.9  71.9  72.0  71.4  71.0  71.8  72.8   \n",
+       "\n",
+       "   2016  \n",
+       "0  72.8  \n",
+       "1  73.8  \n",
+       "2  72.3  \n",
+       "3  71.5  \n",
+       "4  74.7  \n",
+       "5  79.2  \n",
+       "6  77.4  \n",
+       "7  73.8  \n",
+       "8  68.8  \n",
+       "9  73.6  "
+      ]
+     },
+     "execution_count": 142,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "empl = pd.read_excel(fname, skiprows=2)\n",
+    "empl.head(10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The first couple of columns are not needed and contain only missing values (denoted by `NaN` (Not a Number)), so we will drop those. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 143,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "drop_these = ['Unnamed: 0', 'Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 144,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "empl.drop(drop_these, axis=1, inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 145,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Unnamed: 4</th>\n",
+       "      <th>2008</th>\n",
+       "      <th>2009</th>\n",
+       "      <th>2010</th>\n",
+       "      <th>2011</th>\n",
+       "      <th>2012</th>\n",
+       "      <th>2013</th>\n",
+       "      <th>2014</th>\n",
+       "      <th>2015</th>\n",
+       "      <th>2016</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Hele landet</td>\n",
+       "      <td>76.0</td>\n",
+       "      <td>72.8</td>\n",
+       "      <td>72.1</td>\n",
+       "      <td>71.8</td>\n",
+       "      <td>71.3</td>\n",
+       "      <td>71.3</td>\n",
+       "      <td>71.6</td>\n",
+       "      <td>72.1</td>\n",
+       "      <td>72.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Region Hovedstaden</td>\n",
+       "      <td>75.8</td>\n",
+       "      <td>73.3</td>\n",
+       "      <td>72.6</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>72.2</td>\n",
+       "      <td>72.3</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>73.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Landsdel Byen København</td>\n",
+       "      <td>73.4</td>\n",
+       "      <td>71.0</td>\n",
+       "      <td>70.5</td>\n",
+       "      <td>70.5</td>\n",
+       "      <td>70.4</td>\n",
+       "      <td>70.6</td>\n",
+       "      <td>70.9</td>\n",
+       "      <td>71.6</td>\n",
+       "      <td>72.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>København</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>69.7</td>\n",
+       "      <td>69.6</td>\n",
+       "      <td>69.4</td>\n",
+       "      <td>69.7</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>70.8</td>\n",
+       "      <td>71.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Frederiksberg</td>\n",
+       "      <td>75.6</td>\n",
+       "      <td>73.7</td>\n",
+       "      <td>72.7</td>\n",
+       "      <td>72.8</td>\n",
+       "      <td>73.0</td>\n",
+       "      <td>73.3</td>\n",
+       "      <td>73.5</td>\n",
+       "      <td>74.0</td>\n",
+       "      <td>74.7</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                Unnamed: 4  2008  2009  2010  2011  2012  2013  2014  2015  \\\n",
+       "0              Hele landet  76.0  72.8  72.1  71.8  71.3  71.3  71.6  72.1   \n",
+       "1       Region Hovedstaden  75.8  73.3  72.6  72.5  72.2  72.3  72.5  73.2   \n",
+       "2  Landsdel Byen København  73.4  71.0  70.5  70.5  70.4  70.6  70.9  71.6   \n",
+       "3                København  72.5  70.0  69.7  69.6  69.4  69.7  70.0  70.8   \n",
+       "4            Frederiksberg  75.6  73.7  72.7  72.8  73.0  73.3  73.5  74.0   \n",
+       "\n",
+       "   2016  \n",
+       "0  72.8  \n",
+       "1  73.8  \n",
+       "2  72.3  \n",
+       "3  71.5  \n",
+       "4  74.7  "
+      ]
+     },
+     "execution_count": 145,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "empl.head(5)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> Alternatively, use `del empl['Unnamed: 0']`"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Renaming variables"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Let's rename the first variable, which is now called `Unnamed: 4`. This is done using `df.rename(columns=dict)`, where dict must be a Python *dictionary*. A dictionary specifies a map between `key` and `value` like so: `dict = {key:value}`. In our case, both will be strings. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 146,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "empl.rename(columns = {'Unnamed: 4':'municipality'}, inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We also see that the employment rate in 2008 has been named `2008`. Having a variable that is named a number can cause problems with some functions (and many other programming languages do not even allow it), so let us change their names. To do so, we need to create a dictionary that maps each of the years {2008, ..., 2016} to {e2008, ..., e2016}. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 147,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'2008': 'e2008',\n",
+       " '2009': 'e2009',\n",
+       " '2010': 'e2010',\n",
+       " '2011': 'e2011',\n",
+       " '2012': 'e2012',\n",
+       " '2013': 'e2013',\n",
+       " '2014': 'e2014',\n",
+       " '2015': 'e2015',\n",
+       " '2016': 'e2016'}"
+      ]
+     },
+     "execution_count": 147,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "myDict = {}\n",
+    "for i in range(2008, 2017): # range goes from 2008 to but not including 2017\n",
+    "    myDict[str(i)] = f'e{i}' \n",
+    "myDict"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 148,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "empl.rename(columns = myDict, inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 149,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>municipality</th>\n",
+       "      <th>e2008</th>\n",
+       "      <th>e2009</th>\n",
+       "      <th>e2010</th>\n",
+       "      <th>e2011</th>\n",
+       "      <th>e2012</th>\n",
+       "      <th>e2013</th>\n",
+       "      <th>e2014</th>\n",
+       "      <th>e2015</th>\n",
+       "      <th>e2016</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Hele landet</td>\n",
+       "      <td>76.0</td>\n",
+       "      <td>72.8</td>\n",
+       "      <td>72.1</td>\n",
+       "      <td>71.8</td>\n",
+       "      <td>71.3</td>\n",
+       "      <td>71.3</td>\n",
+       "      <td>71.6</td>\n",
+       "      <td>72.1</td>\n",
+       "      <td>72.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Region Hovedstaden</td>\n",
+       "      <td>75.8</td>\n",
+       "      <td>73.3</td>\n",
+       "      <td>72.6</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>72.2</td>\n",
+       "      <td>72.3</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>73.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Landsdel Byen København</td>\n",
+       "      <td>73.4</td>\n",
+       "      <td>71.0</td>\n",
+       "      <td>70.5</td>\n",
+       "      <td>70.5</td>\n",
+       "      <td>70.4</td>\n",
+       "      <td>70.6</td>\n",
+       "      <td>70.9</td>\n",
+       "      <td>71.6</td>\n",
+       "      <td>72.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>København</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>69.7</td>\n",
+       "      <td>69.6</td>\n",
+       "      <td>69.4</td>\n",
+       "      <td>69.7</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>70.8</td>\n",
+       "      <td>71.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Frederiksberg</td>\n",
+       "      <td>75.6</td>\n",
+       "      <td>73.7</td>\n",
+       "      <td>72.7</td>\n",
+       "      <td>72.8</td>\n",
+       "      <td>73.0</td>\n",
+       "      <td>73.3</td>\n",
+       "      <td>73.5</td>\n",
+       "      <td>74.0</td>\n",
+       "      <td>74.7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>Dragør</td>\n",
+       "      <td>80.5</td>\n",
+       "      <td>78.8</td>\n",
+       "      <td>78.5</td>\n",
+       "      <td>78.5</td>\n",
+       "      <td>78.7</td>\n",
+       "      <td>78.7</td>\n",
+       "      <td>78.9</td>\n",
+       "      <td>78.6</td>\n",
+       "      <td>79.2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>Tårnby</td>\n",
+       "      <td>79.0</td>\n",
+       "      <td>76.3</td>\n",
+       "      <td>75.4</td>\n",
+       "      <td>75.8</td>\n",
+       "      <td>75.4</td>\n",
+       "      <td>75.8</td>\n",
+       "      <td>75.7</td>\n",
+       "      <td>76.5</td>\n",
+       "      <td>77.4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>Landsdel Københavns omegn</td>\n",
+       "      <td>77.1</td>\n",
+       "      <td>74.2</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>73.0</td>\n",
+       "      <td>72.4</td>\n",
+       "      <td>72.4</td>\n",
+       "      <td>72.6</td>\n",
+       "      <td>73.3</td>\n",
+       "      <td>73.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>Albertslund</td>\n",
+       "      <td>73.1</td>\n",
+       "      <td>69.2</td>\n",
+       "      <td>67.5</td>\n",
+       "      <td>67.4</td>\n",
+       "      <td>66.5</td>\n",
+       "      <td>67.0</td>\n",
+       "      <td>67.4</td>\n",
+       "      <td>68.7</td>\n",
+       "      <td>68.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>Ballerup</td>\n",
+       "      <td>75.9</td>\n",
+       "      <td>72.9</td>\n",
+       "      <td>71.9</td>\n",
+       "      <td>72.0</td>\n",
+       "      <td>71.4</td>\n",
+       "      <td>71.0</td>\n",
+       "      <td>71.8</td>\n",
+       "      <td>72.8</td>\n",
+       "      <td>73.6</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                municipality  e2008  e2009  e2010  e2011  e2012  e2013  e2014  \\\n",
+       "0                Hele landet   76.0   72.8   72.1   71.8   71.3   71.3   71.6   \n",
+       "1         Region Hovedstaden   75.8   73.3   72.6   72.5   72.2   72.3   72.5   \n",
+       "2    Landsdel Byen København   73.4   71.0   70.5   70.5   70.4   70.6   70.9   \n",
+       "3                  København   72.5   70.0   69.7   69.6   69.4   69.7   70.0   \n",
+       "4              Frederiksberg   75.6   73.7   72.7   72.8   73.0   73.3   73.5   \n",
+       "5                     Dragør   80.5   78.8   78.5   78.5   78.7   78.7   78.9   \n",
+       "6                     Tårnby   79.0   76.3   75.4   75.8   75.4   75.8   75.7   \n",
+       "7  Landsdel Københavns omegn   77.1   74.2   73.2   73.0   72.4   72.4   72.6   \n",
+       "8                Albertslund   73.1   69.2   67.5   67.4   66.5   67.0   67.4   \n",
+       "9                   Ballerup   75.9   72.9   71.9   72.0   71.4   71.0   71.8   \n",
+       "\n",
+       "   e2015  e2016  \n",
+       "0   72.1   72.8  \n",
+       "1   73.2   73.8  \n",
+       "2   71.6   72.3  \n",
+       "3   70.8   71.5  \n",
+       "4   74.0   74.7  \n",
+       "5   78.6   79.2  \n",
+       "6   76.5   77.4  \n",
+       "7   73.3   73.8  \n",
+       "8   68.7   68.8  \n",
+       "9   72.8   73.6  "
+      ]
+     },
+     "execution_count": 149,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "empl.head(10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we can find the employment rate in the municipality where Anders grew up: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 150,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>municipality</th>\n",
+       "      <th>e2008</th>\n",
+       "      <th>e2009</th>\n",
+       "      <th>e2010</th>\n",
+       "      <th>e2011</th>\n",
+       "      <th>e2012</th>\n",
+       "      <th>e2013</th>\n",
+       "      <th>e2014</th>\n",
+       "      <th>e2015</th>\n",
+       "      <th>e2016</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>40</th>\n",
+       "      <td>Lejre</td>\n",
+       "      <td>81.5</td>\n",
+       "      <td>79.4</td>\n",
+       "      <td>78.3</td>\n",
+       "      <td>78.2</td>\n",
+       "      <td>77.5</td>\n",
+       "      <td>77.4</td>\n",
+       "      <td>77.3</td>\n",
+       "      <td>78.2</td>\n",
+       "      <td>78.6</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   municipality  e2008  e2009  e2010  e2011  e2012  e2013  e2014  e2015  e2016\n",
+       "40        Lejre   81.5   79.4   78.3   78.2   77.5   77.4   77.3   78.2   78.6"
+      ]
+     },
+     "execution_count": 150,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "empl.loc[empl.municipality == 'Lejre']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Dropping observations that are not actually municipalities \n",
+    "\n",
+    "The dataset contains observations like \"Region Hovedstaden\", which is not a municipality so we want to drop such rows. To do this, we can use the `df['var'].str` functionalities, in particular `df['var'].str.contains('PATTERN')`. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 151,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>municipality</th>\n",
+       "      <th>e2008</th>\n",
+       "      <th>e2009</th>\n",
+       "      <th>e2010</th>\n",
+       "      <th>e2011</th>\n",
+       "      <th>e2012</th>\n",
+       "      <th>e2013</th>\n",
+       "      <th>e2014</th>\n",
+       "      <th>e2015</th>\n",
+       "      <th>e2016</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Region Hovedstaden</td>\n",
+       "      <td>75.8</td>\n",
+       "      <td>73.3</td>\n",
+       "      <td>72.6</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>72.2</td>\n",
+       "      <td>72.3</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>73.2</td>\n",
+       "      <td>73.8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>36</th>\n",
+       "      <td>Region Sjælland</td>\n",
+       "      <td>75.7</td>\n",
+       "      <td>72.7</td>\n",
+       "      <td>71.9</td>\n",
+       "      <td>71.6</td>\n",
+       "      <td>70.9</td>\n",
+       "      <td>71.0</td>\n",
+       "      <td>71.3</td>\n",
+       "      <td>71.9</td>\n",
+       "      <td>72.6</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>56</th>\n",
+       "      <td>Region Syddanmark</td>\n",
+       "      <td>75.7</td>\n",
+       "      <td>72.0</td>\n",
+       "      <td>71.2</td>\n",
+       "      <td>70.7</td>\n",
+       "      <td>70.0</td>\n",
+       "      <td>70.1</td>\n",
+       "      <td>70.5</td>\n",
+       "      <td>70.8</td>\n",
+       "      <td>71.6</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>81</th>\n",
+       "      <td>Region Midtjylland</td>\n",
+       "      <td>77.0</td>\n",
+       "      <td>73.4</td>\n",
+       "      <td>72.8</td>\n",
+       "      <td>72.4</td>\n",
+       "      <td>71.8</td>\n",
+       "      <td>71.7</td>\n",
+       "      <td>72.2</td>\n",
+       "      <td>72.5</td>\n",
+       "      <td>73.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>103</th>\n",
+       "      <td>Region Nordjylland</td>\n",
+       "      <td>75.2</td>\n",
+       "      <td>71.5</td>\n",
+       "      <td>71.2</td>\n",
+       "      <td>71.0</td>\n",
+       "      <td>70.6</td>\n",
+       "      <td>70.2</td>\n",
+       "      <td>70.3</td>\n",
+       "      <td>70.7</td>\n",
+       "      <td>71.7</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "           municipality  e2008  e2009  e2010  e2011  e2012  e2013  e2014  \\\n",
+       "1    Region Hovedstaden   75.8   73.3   72.6   72.5   72.2   72.3   72.5   \n",
+       "36      Region Sjælland   75.7   72.7   71.9   71.6   70.9   71.0   71.3   \n",
+       "56    Region Syddanmark   75.7   72.0   71.2   70.7   70.0   70.1   70.5   \n",
+       "81   Region Midtjylland   77.0   73.4   72.8   72.4   71.8   71.7   72.2   \n",
+       "103  Region Nordjylland   75.2   71.5   71.2   71.0   70.6   70.2   70.3   \n",
+       "\n",
+       "     e2015  e2016  \n",
+       "1     73.2   73.8  \n",
+       "36    71.9   72.6  \n",
+       "56    70.8   71.6  \n",
+       "81    72.5   73.3  \n",
+       "103   70.7   71.7  "
+      ]
+     },
+     "execution_count": 151,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "I  = empl.municipality.str.contains('Region')\n",
+    "empl.loc[I, :]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Delete these rows. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 152,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "empl = empl.loc[I == False, :]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 153,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for val in ['Landsdel', 'Hele landet']: \n",
+    "    I = empl.municipality.str.contains(val)\n",
+    "    empl = empl.loc[I == False]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Summary statistics \n",
+    "\n",
+    "To get an overview of employments across municipalities we can use the function `df.describe()`. Note that each observation (municipality) is weighted equally. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 154,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>e2008</th>\n",
+       "      <th>e2009</th>\n",
+       "      <th>e2010</th>\n",
+       "      <th>e2011</th>\n",
+       "      <th>e2012</th>\n",
+       "      <th>e2013</th>\n",
+       "      <th>e2014</th>\n",
+       "      <th>e2015</th>\n",
+       "      <th>e2016</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>count</th>\n",
+       "      <td>99.000000</td>\n",
+       "      <td>99.000000</td>\n",
+       "      <td>99.000000</td>\n",
+       "      <td>99.000000</td>\n",
+       "      <td>99.000000</td>\n",
+       "      <td>99.000000</td>\n",
+       "      <td>99.000000</td>\n",
+       "      <td>99.000000</td>\n",
+       "      <td>99.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>mean</th>\n",
+       "      <td>76.629293</td>\n",
+       "      <td>73.419192</td>\n",
+       "      <td>72.794949</td>\n",
+       "      <td>72.591919</td>\n",
+       "      <td>72.020202</td>\n",
+       "      <td>72.091919</td>\n",
+       "      <td>72.431313</td>\n",
+       "      <td>72.876768</td>\n",
+       "      <td>73.669697</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>std</th>\n",
+       "      <td>3.727538</td>\n",
+       "      <td>3.626537</td>\n",
+       "      <td>3.617062</td>\n",
+       "      <td>3.691211</td>\n",
+       "      <td>3.804240</td>\n",
+       "      <td>3.704484</td>\n",
+       "      <td>3.660062</td>\n",
+       "      <td>3.647275</td>\n",
+       "      <td>3.549690</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>min</th>\n",
+       "      <td>62.900000</td>\n",
+       "      <td>63.400000</td>\n",
+       "      <td>62.400000</td>\n",
+       "      <td>61.500000</td>\n",
+       "      <td>60.700000</td>\n",
+       "      <td>61.200000</td>\n",
+       "      <td>61.600000</td>\n",
+       "      <td>62.200000</td>\n",
+       "      <td>62.600000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25%</th>\n",
+       "      <td>74.650000</td>\n",
+       "      <td>71.350000</td>\n",
+       "      <td>70.550000</td>\n",
+       "      <td>70.000000</td>\n",
+       "      <td>69.450000</td>\n",
+       "      <td>69.700000</td>\n",
+       "      <td>70.200000</td>\n",
+       "      <td>70.750000</td>\n",
+       "      <td>71.500000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>50%</th>\n",
+       "      <td>76.800000</td>\n",
+       "      <td>73.300000</td>\n",
+       "      <td>72.900000</td>\n",
+       "      <td>72.600000</td>\n",
+       "      <td>72.100000</td>\n",
+       "      <td>72.200000</td>\n",
+       "      <td>72.600000</td>\n",
+       "      <td>73.100000</td>\n",
+       "      <td>74.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>75%</th>\n",
+       "      <td>79.150000</td>\n",
+       "      <td>75.900000</td>\n",
+       "      <td>75.200000</td>\n",
+       "      <td>75.050000</td>\n",
+       "      <td>74.500000</td>\n",
+       "      <td>74.500000</td>\n",
+       "      <td>74.700000</td>\n",
+       "      <td>75.200000</td>\n",
+       "      <td>75.700000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>max</th>\n",
+       "      <td>84.000000</td>\n",
+       "      <td>81.500000</td>\n",
+       "      <td>81.400000</td>\n",
+       "      <td>80.500000</td>\n",
+       "      <td>80.700000</td>\n",
+       "      <td>80.500000</td>\n",
+       "      <td>80.900000</td>\n",
+       "      <td>81.200000</td>\n",
+       "      <td>81.800000</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "           e2008      e2009      e2010      e2011      e2012      e2013  \\\n",
+       "count  99.000000  99.000000  99.000000  99.000000  99.000000  99.000000   \n",
+       "mean   76.629293  73.419192  72.794949  72.591919  72.020202  72.091919   \n",
+       "std     3.727538   3.626537   3.617062   3.691211   3.804240   3.704484   \n",
+       "min    62.900000  63.400000  62.400000  61.500000  60.700000  61.200000   \n",
+       "25%    74.650000  71.350000  70.550000  70.000000  69.450000  69.700000   \n",
+       "50%    76.800000  73.300000  72.900000  72.600000  72.100000  72.200000   \n",
+       "75%    79.150000  75.900000  75.200000  75.050000  74.500000  74.500000   \n",
+       "max    84.000000  81.500000  81.400000  80.500000  80.700000  80.500000   \n",
+       "\n",
+       "           e2014      e2015      e2016  \n",
+       "count  99.000000  99.000000  99.000000  \n",
+       "mean   72.431313  72.876768  73.669697  \n",
+       "std     3.660062   3.647275   3.549690  \n",
+       "min    61.600000  62.200000  62.600000  \n",
+       "25%    70.200000  70.750000  71.500000  \n",
+       "50%    72.600000  73.100000  74.000000  \n",
+       "75%    74.700000  75.200000  75.700000  \n",
+       "max    80.900000  81.200000  81.800000  "
+      ]
+     },
+     "execution_count": 154,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "empl.describe()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Long vs. wide datasets: `pd.wide_to_long()`\n",
+    "\n",
+    "Often in economic applications, it can be useful to switch between *wide* vs. *long* formats (long is sometimes referred to as *tall*, e.g. in Stata). This is done by the commends `pd.wide_to_long()` (and `pd.long_to_wide()`). \n",
+    "\n",
+    "Many types of analyses are easier to do in one format than in another so it is extremely useful to be able to switch comfortably between formats. \n",
+    "\n",
+    "**Common:** Think of a dataset as having an \"ID\" and a \"PERIOD\" variable. In our dataset `empl`, the ID variable is `municipality`, and the period variable is `year`. \n",
+    "\n",
+    "**Wide dataset:** The default from Statistics Denmark: each row corresponds to an ID and there is a variable for each PERIOD. \n",
+    "\n",
+    "**Tall dataset:** There is one row for each combination of (ID, PERIOD). \n",
+    "\n",
+    "In general, Pandas will assume that the variables in the *wide* format have a particular structure: namely they are of the form XPERIOD, where X is called the \"stub\". In our case, the variable names are e.g. `e2011`, so the stub is `e` and the period (for that variable) is `2011`. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 155,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th>e</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>municipality</th>\n",
+       "      <th>year</th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>København</th>\n",
+       "      <th>2008</th>\n",
+       "      <td>72.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Frederiksberg</th>\n",
+       "      <th>2008</th>\n",
+       "      <td>75.6</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Dragør</th>\n",
+       "      <th>2008</th>\n",
+       "      <td>80.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Tårnby</th>\n",
+       "      <th>2008</th>\n",
+       "      <td>79.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Albertslund</th>\n",
+       "      <th>2008</th>\n",
+       "      <td>73.1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Ballerup</th>\n",
+       "      <th>2008</th>\n",
+       "      <td>75.9</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Brøndby</th>\n",
+       "      <th>2008</th>\n",
+       "      <td>72.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Gentofte</th>\n",
+       "      <th>2008</th>\n",
+       "      <td>79.2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Gladsaxe</th>\n",
+       "      <th>2008</th>\n",
+       "      <td>77.9</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Glostrup</th>\n",
+       "      <th>2008</th>\n",
+       "      <td>79.2</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                       e\n",
+       "municipality  year      \n",
+       "København     2008  72.5\n",
+       "Frederiksberg 2008  75.6\n",
+       "Dragør        2008  80.5\n",
+       "Tårnby        2008  79.0\n",
+       "Albertslund   2008  73.1\n",
+       "Ballerup      2008  75.9\n",
+       "Brøndby       2008  72.3\n",
+       "Gentofte      2008  79.2\n",
+       "Gladsaxe      2008  77.9\n",
+       "Glostrup      2008  79.2"
+      ]
+     },
+     "execution_count": 155,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "empl_tall = pd.wide_to_long(empl, stubnames='e', i='municipality', j='year')\n",
+    "empl_tall.head(10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Note:** The variables `region` and `year`  are now in the index!! We see that because they are \"below\" `e` in the `head` overview. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 156,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "empl_tall = empl_tall.reset_index()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we can look for the municipality we care about"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 157,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>municipality</th>\n",
+       "      <th>year</th>\n",
+       "      <th>e</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>32</th>\n",
+       "      <td>Lejre</td>\n",
+       "      <td>2008</td>\n",
+       "      <td>81.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>131</th>\n",
+       "      <td>Lejre</td>\n",
+       "      <td>2009</td>\n",
+       "      <td>79.4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>230</th>\n",
+       "      <td>Lejre</td>\n",
+       "      <td>2010</td>\n",
+       "      <td>78.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>329</th>\n",
+       "      <td>Lejre</td>\n",
+       "      <td>2011</td>\n",
+       "      <td>78.2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>428</th>\n",
+       "      <td>Lejre</td>\n",
+       "      <td>2012</td>\n",
+       "      <td>77.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>527</th>\n",
+       "      <td>Lejre</td>\n",
+       "      <td>2013</td>\n",
+       "      <td>77.4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>626</th>\n",
+       "      <td>Lejre</td>\n",
+       "      <td>2014</td>\n",
+       "      <td>77.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>725</th>\n",
+       "      <td>Lejre</td>\n",
+       "      <td>2015</td>\n",
+       "      <td>78.2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>824</th>\n",
+       "      <td>Lejre</td>\n",
+       "      <td>2016</td>\n",
+       "      <td>78.6</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    municipality  year     e\n",
+       "32         Lejre  2008  81.5\n",
+       "131        Lejre  2009  79.4\n",
+       "230        Lejre  2010  78.3\n",
+       "329        Lejre  2011  78.2\n",
+       "428        Lejre  2012  77.5\n",
+       "527        Lejre  2013  77.4\n",
+       "626        Lejre  2014  77.3\n",
+       "725        Lejre  2015  78.2\n",
+       "824        Lejre  2016  78.6"
+      ]
+     },
+     "execution_count": 157,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "empl_tall.loc[empl_tall.municipality == 'Lejre', :]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As a quick teaser for what's to come, here's a cute little plot using the builtin pandas plot function. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 159,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "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\n",
+      "text/plain": [
+       "<Figure size 432x288 with 1 Axes>"
+      ]
+     },
+     "metadata": {
+      "needs_background": "light"
+     },
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "empl_tall.loc[empl_tall['municipality'] == 'Lejre', :].plot(x='year',y='e'); "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 160,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import ipywidgets as widgets"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 162,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def plot_e(dataframe, municipality): \n",
+    "    I = dataframe['municipality'] == municipality\n",
+    "    dataframe.loc[I,:].plot(x='year', y='e')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 165,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "all_municipalities = empl_tall.municipality.unique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 167,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "f226a7f18870407ea78c9224ef46a5a0",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "interactive(children=(Dropdown(description='Municipality', index=32, options=('København', 'Frederiksberg', 'D…"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "widgets.interact(plot_e, \n",
+    "                 dataframe = widgets.fixed(empl_tall),\n",
+    "                 municipality = widgets.Dropdown(description='Municipality', options=all_municipalities, value='Lejre')\n",
+    "                 ); "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Income\n",
+    "\n",
+    "Next, we will read in the avg. disposable income for highly educated in each municipality"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 168,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>municipality</th>\n",
+       "      <th>inc2004</th>\n",
+       "      <th>inc2005</th>\n",
+       "      <th>inc2006</th>\n",
+       "      <th>inc2007</th>\n",
+       "      <th>inc2008</th>\n",
+       "      <th>inc2009</th>\n",
+       "      <th>inc2010</th>\n",
+       "      <th>inc2011</th>\n",
+       "      <th>inc2012</th>\n",
+       "      <th>inc2013</th>\n",
+       "      <th>inc2014</th>\n",
+       "      <th>inc2015</th>\n",
+       "      <th>inc2016</th>\n",
+       "      <th>inc2017</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Hele landet</td>\n",
+       "      <td>283479.0</td>\n",
+       "      <td>299959.0</td>\n",
+       "      <td>313244.0</td>\n",
+       "      <td>314747.0</td>\n",
+       "      <td>306692.0</td>\n",
+       "      <td>312650.0</td>\n",
+       "      <td>357568.0</td>\n",
+       "      <td>364077.0</td>\n",
+       "      <td>372494.0</td>\n",
+       "      <td>383394.0</td>\n",
+       "      <td>393843.0</td>\n",
+       "      <td>402813.0</td>\n",
+       "      <td>392357.0</td>\n",
+       "      <td>398937.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Region Hovedstaden</td>\n",
+       "      <td>291967.0</td>\n",
+       "      <td>313064.0</td>\n",
+       "      <td>327543.0</td>\n",
+       "      <td>327163.0</td>\n",
+       "      <td>317789.0</td>\n",
+       "      <td>318511.0</td>\n",
+       "      <td>371004.0</td>\n",
+       "      <td>378890.0</td>\n",
+       "      <td>388151.0</td>\n",
+       "      <td>398802.0</td>\n",
+       "      <td>411928.0</td>\n",
+       "      <td>422364.0</td>\n",
+       "      <td>411602.0</td>\n",
+       "      <td>417547.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Landsdel Byen København</td>\n",
+       "      <td>243933.0</td>\n",
+       "      <td>255880.0</td>\n",
+       "      <td>267326.0</td>\n",
+       "      <td>265819.0</td>\n",
+       "      <td>268647.0</td>\n",
+       "      <td>275929.0</td>\n",
+       "      <td>309857.0</td>\n",
+       "      <td>317140.0</td>\n",
+       "      <td>321683.0</td>\n",
+       "      <td>330261.0</td>\n",
+       "      <td>337636.0</td>\n",
+       "      <td>348220.0</td>\n",
+       "      <td>340119.0</td>\n",
+       "      <td>348574.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>København</td>\n",
+       "      <td>233204.0</td>\n",
+       "      <td>244462.0</td>\n",
+       "      <td>255315.0</td>\n",
+       "      <td>254533.0</td>\n",
+       "      <td>259216.0</td>\n",
+       "      <td>266636.0</td>\n",
+       "      <td>297422.0</td>\n",
+       "      <td>303717.0</td>\n",
+       "      <td>308601.0</td>\n",
+       "      <td>316362.0</td>\n",
+       "      <td>325070.0</td>\n",
+       "      <td>334083.0</td>\n",
+       "      <td>327179.0</td>\n",
+       "      <td>333579.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Frederiksberg</td>\n",
+       "      <td>276111.0</td>\n",
+       "      <td>291299.0</td>\n",
+       "      <td>305539.0</td>\n",
+       "      <td>301547.0</td>\n",
+       "      <td>296988.0</td>\n",
+       "      <td>304406.0</td>\n",
+       "      <td>349249.0</td>\n",
+       "      <td>356537.0</td>\n",
+       "      <td>363466.0</td>\n",
+       "      <td>376072.0</td>\n",
+       "      <td>379308.0</td>\n",
+       "      <td>397210.0</td>\n",
+       "      <td>389151.0</td>\n",
+       "      <td>409097.0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "              municipality   inc2004   inc2005   inc2006   inc2007   inc2008  \\\n",
+       "0              Hele landet  283479.0  299959.0  313244.0  314747.0  306692.0   \n",
+       "1       Region Hovedstaden  291967.0  313064.0  327543.0  327163.0  317789.0   \n",
+       "2  Landsdel Byen København  243933.0  255880.0  267326.0  265819.0  268647.0   \n",
+       "3                København  233204.0  244462.0  255315.0  254533.0  259216.0   \n",
+       "4            Frederiksberg  276111.0  291299.0  305539.0  301547.0  296988.0   \n",
+       "\n",
+       "    inc2009   inc2010   inc2011   inc2012   inc2013   inc2014   inc2015  \\\n",
+       "0  312650.0  357568.0  364077.0  372494.0  383394.0  393843.0  402813.0   \n",
+       "1  318511.0  371004.0  378890.0  388151.0  398802.0  411928.0  422364.0   \n",
+       "2  275929.0  309857.0  317140.0  321683.0  330261.0  337636.0  348220.0   \n",
+       "3  266636.0  297422.0  303717.0  308601.0  316362.0  325070.0  334083.0   \n",
+       "4  304406.0  349249.0  356537.0  363466.0  376072.0  379308.0  397210.0   \n",
+       "\n",
+       "    inc2016   inc2017  \n",
+       "0  392357.0  398937.0  \n",
+       "1  411602.0  417547.0  \n",
+       "2  340119.0  348574.0  \n",
+       "3  327179.0  333579.0  \n",
+       "4  389151.0  409097.0  "
+      ]
+     },
+     "execution_count": 168,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "inc = pd.read_excel('./data/INDKP107.xlsx', skiprows=2)\n",
+    "\n",
+    "inc.drop([f'Unnamed: {i}' for i in range(4)], axis=1, inplace=True)\n",
+    "inc.rename(columns = {'Unnamed: 4':'municipality'}, inplace=True)\n",
+    "inc.rename(columns = {str(i): f'inc{i}' for i in range(2004,2018)}, inplace=True)\n",
+    "\n",
+    "for val in ['Region','Landsdel', 'Hele landet']: \n",
+    "    I = inc.municipality.str.contains(val)\n",
+    "    inc.drop(inc[I == False].index, inplace=True)\n",
+    "\n",
+    "inc.head(5)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**WARNING:** We now have missings. This will cause errors when we keep working. Here is how many missings we have for the variable `region`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 169,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "2"
+      ]
+     },
+     "execution_count": 169,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "inc.municipality.isnull().sum() # number of missings "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Solution:** We just drop the missings. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 170,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Size before: (117, 15)\n",
+      "Size after: (115, 15)\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(f'Size before: {inc.shape}')\n",
+    "inc.dropna(inplace=True)\n",
+    "print(f'Size after: {inc.shape}')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Convert wide->tall"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 171,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>municipality</th>\n",
+       "      <th>year</th>\n",
+       "      <th>inc</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Hele landet</td>\n",
+       "      <td>2004</td>\n",
+       "      <td>283479.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Region Hovedstaden</td>\n",
+       "      <td>2004</td>\n",
+       "      <td>291967.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Landsdel Byen København</td>\n",
+       "      <td>2004</td>\n",
+       "      <td>243933.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>København</td>\n",
+       "      <td>2004</td>\n",
+       "      <td>233204.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Frederiksberg</td>\n",
+       "      <td>2004</td>\n",
+       "      <td>276111.0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "              municipality  year       inc\n",
+       "0              Hele landet  2004  283479.0\n",
+       "1       Region Hovedstaden  2004  291967.0\n",
+       "2  Landsdel Byen København  2004  243933.0\n",
+       "3                København  2004  233204.0\n",
+       "4            Frederiksberg  2004  276111.0"
+      ]
+     },
+     "execution_count": 171,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "inc_tall = pd.wide_to_long(df=inc, stubnames='inc', i='municipality', j='year').reset_index(drop=False)\n",
+    "inc_tall.head(5)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Municipal area\n",
+    "\n",
+    "Finally, let's read in a dataset on municipality areas in km$^2$. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 174,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>municipality</th>\n",
+       "      <th>km2</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Hele landet</td>\n",
+       "      <td>42934.1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Region Hovedstaden</td>\n",
+       "      <td>2559.4</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "         municipality      km2\n",
+       "0         Hele landet  42934.1\n",
+       "1  Region Hovedstaden   2559.4"
+      ]
+     },
+     "execution_count": 174,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "area = pd.read_excel('./data/areal.xlsx', skiprows=2)\n",
+    "area.rename(columns = {'Unnamed: 0':'municipality','areal':'km2'}, inplace=True)\n",
+    "area.dropna(inplace=True)\n",
+    "area.head(2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Writing data\n",
+    "\n",
+    "As with reading in data, we have the corresponding functions \n",
+    "* df.to_csv()\n",
+    "* df.to_excel()\n",
+    "* df.to_stata()\n",
+    "* df.to_sas()\n",
+    "* df.to_hdf(): Pro = low memory footprint, cons = restrictive as to which variables you can save; Python only. \n",
+    "* df.to_pickle(): Pro = quick and dirty, can save all variable types. Cons = Python only; quite unsafe (a malicious hacker can store a virus in a pickle!). \n",
+    "\n",
+    "Let's save our dataset to CSV form. We will set `index=False` to avoid saving the index (which does not mean anything here but can in other contexts be an annoying thing). "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 60,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "empl_tall.to_csv('./data/RAS200_tall.csv', index=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 61,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "inc_tall.to_csv('./data/INDKP107_tall.csv', index=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 62,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "area.to_csv('./data/area.csv', index=False)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.1"
+  },
+  "toc-autonumbering": true
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
