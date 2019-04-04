@@ -90,7 +90,7 @@
 
 \shape smallcaps
 \size largest
-Project 1: Data Analysis Project
+Project 2: Model Analysis Project
 \end_layout
 
 \begin_layout Author
@@ -133,11 +133,8 @@ Objectives:
 
 \begin_deeper
 \begin_layout Enumerate
-Apply data cleaning and data structuring methods
-\end_layout
-
-\begin_layout Enumerate
-Apply data analysis methods
+Apply model analysis methods (e.g.
+ scipy.optimize, scipy.linalg, sympy)
 \end_layout
 
 \begin_layout Enumerate
@@ -158,28 +155,25 @@ Present results in text form and in figures
 \series bold
 Content:
 \series default
- In your data analysis project, you should at a minimum:
+ In your model analysis project, you should at a minimum:
 \end_layout
 
 \begin_deeper
 \begin_layout Enumerate
-Import data from an online source (through download or an API)
+Describe an algorithm on how to solve a simple economic model
 \end_layout
 
 \begin_layout Enumerate
-Present the data visually (and perhaps interactively)
+Solve (and perhaps simulate) a simple economic model
 \end_layout
 
 \begin_layout Enumerate
-Apply some method(s) from descriptive economics (
-\begin_inset Quotes ald
-\end_inset
+Visualize results across e.g.
+ parametrizations
+\end_layout
 
-samfundsbeskrivelse
-\begin_inset Quotes ard
-\end_inset
-
-)
+\begin_layout Enumerate
+Analyze one or more extensions of the baseline model
 \end_layout
 
 \end_deeper
@@ -214,9 +208,6 @@ Size:
 Quality before quantity
 \emph default
 .
- Cleaning and joining a couple of data sets and then making some interactive
- figures might be just fine.
- Else you will be asked to extend it for the exam.
 \end_layout
 
 \begin_layout Itemize
@@ -229,46 +220,7 @@ On GitHub by uploading it to the folder:
 
 \begin_deeper
 \begin_layout Quote
-github.com/projects-2019-YOURGROUPNAME/dataproject/
-\end_layout
-
-\begin_layout Enumerate
-Add your group to this 
-\begin_inset CommandInset href
-LatexCommand href
-name "list"
-target "https://docs.google.com/spreadsheets/d/1HlOaNIR5wZOGxnvIxrYSrfdSKNHDu7LiwFvlSwX1Zbw/edit?usp=sharing"
-literal "false"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Enumerate
-Create your GitHub repository 
-\begin_inset CommandInset href
-LatexCommand href
-name "here"
-target "https://classroom.github.com/g/Wu088Oqh"
-literal "false"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Enumerate
-Follow step 2-3 in this 
-\begin_inset CommandInset href
-LatexCommand href
-name "guide"
-target "https://numeconcopenhagen.netlify.com/guides/vscode-git/"
-literal "false"
-
-\end_inset
-
- to upload
+github.com/projects-2019-YOURGROUPNAME/modelproject/
 \end_layout
 
 \end_deeper
@@ -277,7 +229,7 @@ literal "false"
 \series bold
 Deadline:
 \series default
- 5th of April 23.59
+ 10th of May 23.59
 \end_layout
 
 \begin_layout Itemize
@@ -285,9 +237,10 @@ Deadline:
 \series bold
 Supervision: 
 \series default
-In the week starting 25th of March there will be no teaching.
- The lecturer and the teaching assistants will instead be available for
- answering questions both 
+The exercises class in the weeks starting 29th of April and 6th will give
+ you time to work on your model project and receive supervision from the
+ lecturer and the teaching assistants.
+ Also, remember the 
 \begin_inset CommandInset href
 LatexCommand href
 name "online"
@@ -296,7 +249,7 @@ literal "false"
 
 \end_inset
 
- and in class.
+ forum.
 \end_layout
 
 \begin_layout Itemize
@@ -313,8 +266,8 @@ After handing in, you will be asked to give peer feedback on the projects
 \series bold
 Exam: 
 \series default
-Your data analysis project will be a part of your exam portfolio.
- You are free to incorporate the peer-feedback and other comments before
+Your model analysis project will be a part of your exam portfolio.
+ You are free to incorporate the peer feedback and other comments before
  handing in the final version.
 \end_layout
 
