@@ -108,3 +108,6 @@ venv.bak/
 
 # MAC specific
 *.DS_Store
+
+# my own
+.lyx~
