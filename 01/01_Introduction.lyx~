@@ -1335,25 +1335,6 @@ use link on web-page
 \begin_layout Itemize
 
 \series bold
-Binder:
-\series default
- Online access to interactive version of the course materials (requires
- no installation)
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-use lectures-2019 link on web-page
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
 Install and run Python: 
 \series default
 Follow these guides
@@ -1596,7 +1577,7 @@ Algorithms: Searching and sorting
 \end_layout
 
 \begin_layout Enumerate
-Algorithms: Solving equations (numerically and symbolically)
+Algorithms: Solving equations
 \end_layout
 
 \begin_layout Enumerate
@@ -1690,7 +1671,7 @@ Problem Set 3: Loading and combining data from Denmark Statistics
 \end_layout
 
 \begin_layout Enumerate
-Problem Set 4: Analyzing data from Denmark Statistics
+Problem Set 4: Analyzing data
 \end_layout
 
 \begin_layout Enumerate
@@ -2012,7 +1993,7 @@ note: this is fully workshop based
 
 \begin_deeper
 \begin_layout Enumerate
-Solve tasks and puzzles
+Solve tasks and problems
 \end_layout
 
 \begin_layout Enumerate
@@ -2486,7 +2467,7 @@ Create and commit folder called
 \begin_inset Quotes eld
 \end_inset
 
-data_analysis_project
+dataproject
 \begin_inset Quotes erd
 \end_inset
 
@@ -2539,7 +2520,7 @@ Document code
 \end_layout
 
 \begin_layout Enumerate
-Present results
+Present results in text form and in figures
 \end_layout
 
 \end_deeper
@@ -2563,20 +2544,20 @@ this could be a model from a course you are taking anyway
 
 \begin_deeper
 \begin_layout Enumerate
-Description of algorithm to solve simple economic model
+Describe an algorithm on how to solve a simple economic model
 \end_layout
 
 \begin_layout Enumerate
-Solution (and perhaps simulation) of simple economic model
+Solve (and perhaps simulate) a simple economic model
 \end_layout
 
 \begin_layout Enumerate
-Visualization of results across e.g.
+Visualize results across e.g.
  parametrizations
 \end_layout
 
 \begin_layout Enumerate
-Analysis of extensions of the baseline model
+Analyze one or more extensions of the baseline model
 \begin_inset Note Note
 status open
 
@@ -2615,7 +2596,7 @@ Create and commit folder called
 \begin_inset Quotes eld
 \end_inset
 
-model_analysis_project
+modelproject
 \begin_inset Quotes erd
 \end_inset
 
@@ -2921,41 +2902,6 @@ status open
 
 \series bold
 Second priority: 
-\series default
-Try running JupyterLab in binder
-\begin_inset Newline newline
-\end_inset
-
-Go to course page, click on a 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-includegraphics[height=3mm]{figs/binder.pdf} 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Enumerate
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<+->
-\end_layout
-
-\end_inset
-
-
-\series bold
-Third priority: 
 \end_layout
 
 \begin_deeper
@@ -3015,7 +2961,7 @@ status open
 
 
 \series bold
-Fourth priority: 
+Third priority: 
 \series default
 Read the guides on:
 \end_layout
