@@ -121,8 +121,12 @@ Vision:
 \series default
 The projects you hand-in should be understandable to your fellow students,
  and you should be able to understand other students' projects.
- You are therefore required to provide peer feedback on the projects of
- two other groups.
+ You are therefore asked to provide peer feedback on the projects of two
+ other groups (
+\emph on
+this is a requirement for qualifying for the exam
+\emph default
+).
  You must provide the feedback directly on GitHub.
  The feedback should focus on:
 \end_layout
