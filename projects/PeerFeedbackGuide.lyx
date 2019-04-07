@@ -163,12 +163,46 @@ literal "false"
 \end_layout
 
 \begin_layout Enumerate
-Go to their repository
+Go to their repository:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+url{https://github.com/NumEconCopenhagen/projects-2019-GROUPNAME}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
 \begin_layout Standard
-https://github.com/NumEconCopenhagen/projects-2019-GROUPNAME
+Otherwise, try to search for the group here:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+url{https://github.com/NumEconCopenhagen}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -216,7 +250,7 @@ The hardest part of the project to understand was:
 \begin_layout Enumerate
 
 \series bold
-A good idea for an improvement/clarification could be:
+An idea for an improvement/clarification could be:
 \series default
  (explain what and why)
 \end_layout
@@ -224,9 +258,17 @@ A good idea for an improvement/clarification could be:
 \begin_layout Enumerate
 
 \series bold
-A good idea for an extension could be: 
+An idea for an extension could be: 
 \series default
 (explain what and why)
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Deadline:
+\series default
+ 17th of April 23:59.
 \end_layout
 
 \end_body
