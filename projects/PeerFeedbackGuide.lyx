@@ -163,7 +163,7 @@ literal "false"
 \end_layout
 
 \begin_layout Enumerate
-Go to their repository:
+Go to their repositories:
 \begin_inset Newline newline
 \end_inset
 
@@ -185,7 +185,7 @@ url{https://github.com/NumEconCopenhagen/projects-2019-GROUPNAME}
 
 \begin_deeper
 \begin_layout Standard
-Otherwise, try to search for the group here:
+Otherwise, try to search for the groups here:
 \begin_inset Newline newline
 \end_inset
 
@@ -207,15 +207,15 @@ url{https://github.com/NumEconCopenhagen}
 
 \end_deeper
 \begin_layout Enumerate
-Clone their repository (download it to your own computer).
+Clone their repositories (download them to your own computer).
 \end_layout
 
 \begin_layout Enumerate
-Try to run their notebook.
+Try to run their notebooks.
 \end_layout
 
 \begin_layout Enumerate
-Create a new issue in their repository (click on the 
+Create new issues in their repositories (click on the 
 \begin_inset Quotes eld
 \end_inset
 
@@ -227,7 +227,7 @@ Issues
 \end_layout
 
 \begin_layout Standard
-The issue should follow the template below and all comments should be as
+The issues should follow the template below and all comments should be as
  constructive as possible:
 \end_layout
 

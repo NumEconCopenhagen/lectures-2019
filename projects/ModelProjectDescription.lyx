@@ -129,7 +129,7 @@ Programming is more than writing code.
 \series bold
 Objectives:
 \series default
- In your data analysis project, you should show that you can:
+ In your model analysis project, you should show that you can:
 \end_layout
 
 \begin_deeper
@@ -161,7 +161,11 @@ Content:
 
 \begin_deeper
 \begin_layout Enumerate
-Describe an algorithm on how to solve a simple economic model
+Describe an algorithm on how to solve a simple economic model 
+\begin_inset Newline newline
+\end_inset
+
+(most likely taken from a textbook)
 \end_layout
 
 \begin_layout Enumerate
