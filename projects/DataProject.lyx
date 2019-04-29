@@ -106,6 +106,8 @@ status open
 
 
 \backslash
+vspace{-3mm}
+\backslash
 thispagestyle{empty}
 \end_layout
 
@@ -181,6 +183,23 @@ samfundsbeskrivelse
 \end_inset
 
 )
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Example of structure: 
+\series default
+
+\begin_inset CommandInset href
+LatexCommand href
+name "See this repository"
+target "https://github.com/NumEconCopenhagen/projects-2019-examples"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \end_deeper
