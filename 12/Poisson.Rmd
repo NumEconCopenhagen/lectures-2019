@@ -1,0 +1,278 @@
+---
+title: "Estimating a Poisson Regression Model with R"
+author: "Rémi Piatek"
+date: "May 6, 2019"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
+
+## The R Programming Language
+
+- `R`: Popular **open-source programming language** for statistical analysis.
+- Widely used in statistics and econometrics.
+- **User-friendly and powerful IDE** for `R`: [RStudio](https://www.rstudio.com/).
+- Basic functionalities of `R` can be extended by **packages**.
+- Large number of packages available on the 
+[Comprehensive R Archive Network](https://cran.r-project.org/).
+- **Goal of this presentation:** Illustrate how to use `R` for the estimation of a
+Poisson regression model.
+
+## Count Data Models
+
+- **Count data** models are used to explain dependent variables that are natural 
+numbers, i.e., positive integers such that $y_i \in \mathbb{N}$, where 
+$\mathbb{N} = \{0, 1, 2,\ldots\}$. 
+
+- Count data models are frequently used in economics to study **countable events**:
+Number of years of education, number of patent applications filed by companies, 
+number of doctor visits, number of crimes committed in a given city, etc. 
+
+- The **Poisson model** is a popular count data model.
+
+
+## Poisson Regression Model
+
+- Given a parameter $\lambda_i > 0$, the **Poisson model** assumes that the 
+probability of observing $Y_i=y_i$, where $y_i\in\mathbb{N}$, is equal to:
+$$Prob(Y_i = y_i \mid \lambda_i) = \frac{\lambda_i^{y_i}\exp\{-\lambda_i\}}{y_i!},$$
+for $i=1,\ldots,N$.
+
+- The mean and the variance of $Y_i$ are equal to the parameter $\lambda_i$:  
+$$E(Y_i\mid\lambda_i) = V(Y_i\mid\lambda_i) = \lambda_i,$$
+implying *equi-dispersion* of the data.
+
+- To control for **observed characteristics**, the parameter $\lambda_i$ can be 
+parametrized as follows (implying $\lambda_i > 0$):
+$$E(Y_i|X_i,\beta) \equiv \lambda_i = \exp\{X_i'\beta\},$$
+where $X_i$ is a vector containing the covariates.
+
+
+
+## Simulating Data
+
+- `R` function simulating data from Poisson regression model:
+```{r}
+simul_poisson <- function(n, beta) {
+  k <- length(beta)               # number of covariates
+  x <- replicate(k - 1, rnorm(n)) # simulate covariates
+  x <- cbind(1, x)                # for intercept term
+  lambda <- exp(x %*% beta)       # individual means
+  y <- rpois(n, lambda)           # simulate count
+  return(data.frame(y, x))        # return variables
+}
+```
+- Using function to generate data:
+```{r}
+set.seed(123)
+nobs <- 1000
+beta <- c(-.5, .4, -.7)
+data <- simul_poisson(nobs, beta)
+```
+
+## Data Description
+
+- Descriptive statistics:
+```{r}
+# extract variables of interest from data set
+y <- data[, 1]
+x <- as.matrix(data[, 2:4])
+
+# descriptive statistics
+library(psych)
+describe(data)
+```
+
+## Data Description
+
+- Histogram of count variable:
+```{r, fig.height=5}
+barplot(table(y))
+```
+
+## Data Description
+
+- Relationship between count variable and covariates:
+```{r, fig.height=5}
+par(mfrow = c(1, 2))
+plot(y, x[, 2])
+plot(y, x[, 3])
+```
+
+## Likelihood Function and ML Estimator
+
+- Individual contribution to the likelihood function:
+$$L_i(\beta;y_i,x_i) = \frac{\exp\{y_ix_i\beta\}\exp\{-\exp\{x_i\beta\}\}}{y_i!}$$
+- Individual log-Likelihood function:
+$$\ell_i(\beta;y_i,x_i) = \log L_i(\beta;y_i,x_i) 
+= y_ix_i\beta - \exp\{x_i\beta\} - \log(y_i!)$$
+
+- Maximum Likelihood Estimator:
+$$\hat{\beta}_{\text{MLE}} = \arg\max_{\beta} \sum_{i=1}^N \ell(\beta;y,X)$$
+
+- Optimization (using *minimization* of objective function): 
+$$\hat{\beta}_{\text{MLE}} = \arg\min_{\beta} Q(\beta;y,X) \qquad
+Q(\beta;y,X) = -\frac{1}{N}\sum_{i=1}^N \ell_i(\beta;y_i,x_i)$$
+
+
+## Coding the Objective Function
+
+```{r}
+# Objective function of Poisson regression model
+obj_poisson <- function(beta, y, x) {
+  lambda <- x %*% beta
+  llik <- y*lambda - exp(lambda) - lfactorial(y)
+  return(-mean(llik))
+}
+
+# Evaluating objective function
+beta0 <- c(1, 2, 3)
+obj_poisson(beta0, y, x)
+```
+
+## Maximizing the Objective Function
+
+- Set starting values:
+```{r}
+beta0 <- rep(0, length(beta))
+```
+- Optimize using quasi-Newton method (BFGS algorithm):
+```{r}
+opt <- optim(beta0, obj_poisson, method = "BFGS", 
+             y = y, x = x)
+```
+- Show results:
+```{r}
+cat("ML estimates:", opt$par,
+    "\nObjective function:", opt$value, "\n")
+```
+
+## Comparing Results to Built-in Function
+
+```{r}
+opt_glm <- glm(y ~ 0 + x, family = poisson)
+summary(opt_glm)
+```
+
+## Comparing Results to Built-in Function
+
+- Collect results from the two approaches to compare them:
+```{r}
+res <- cbind("True" = beta, "MLE" = opt$par, 
+             "GLM" = opt_glm$coefficients)
+row.names(res) <- c("constant", "x1", "x2")
+res
+```
+
+- **Question:** Our results (`MLE`) are virtually the same as those obtained 
+with the built-in function `GLM`, but not identical. Where do the small 
+differences come from?
+
+
+## Empirical Illustration
+
+- Goal: Investigate the determinants of fertility.
+- Poisson regression model used to estimate the relationship between explanatory
+variables and count outcome variable.
+- Both our estimator coded from scratch and `R` built-in function will be used.
+
+## Data
+
+- Source: Botswana's 1988 Demographic and Health Survey.
+- Data set borrowed from Wooldridge:
+```{r}
+library(wooldridge)
+data(fertil2)
+```
+- Outcome variable: Total number of living children:
+```{r}
+y_lab <- "children"
+```
+- Explanatory variables: Education, age, marital status, living in urban area,
+having electricity/TV at home:
+```{r}
+x_lab <- c("educ", "age", "agesq", "evermarr", "urban", 
+           "electric", "tv")
+```
+
+## Loading data
+
+- Selecting variables and removing missing values:
+```{r}
+data <- fertil2[, c(y_lab, x_lab)]
+data <- na.omit(data)
+```
+
+- Show first 6 observations on first 8 variables:
+```{r}
+head(data[, 1:8], n = 6)
+```
+
+## Descriptive Statitics
+
+```{r}
+library(psych)
+describe(data)
+```
+
+## Plot
+
+```{r, fig.height=5}
+attach(data)
+par(mfrow = c(1, 2))
+blue_transp <- adjustcolor("blue", alpha.f = 0.1)
+plot(age, children, pch = 19, col = blue_transp)
+plot(educ, children, pch = 19, col = blue_transp)
+```
+
+
+## MLE of the Poisson Model
+
+- Maximum likelihood function using built-in function `glm()`:
+```{r}
+mle <- glm(children ~ educ + age + agesq + evermarr + 
+             urban + electric + tv,
+           family = "poisson", data = data)
+```
+- Maximum likelihood function using our own function:
+```{r}
+y <- data[, y_lab]
+x <- as.matrix(data[, x_lab])
+x <- cbind(1, x)          # for intercept term
+beta0 <- rep(0, ncol(x))  # starting values
+opt <- optim(beta0, obj_poisson, method = "BFGS", 
+             y = y, x = x)
+```
+
+## MLE of the Poisson Model
+
+- Results different from `glm()`? 
+- Optimization algorithms are iterative methods that rely on different criteria
+to dertermine if/when the optimum has been reached.
+- For example: Change in the objective function, change in the parameter values,
+change in the gradient, step size, etc.
+- *[More in Advanced Microeconometrics course].*
+- Try to adjust tuning parameters, for example add 
+`control = list(ndeps = rep(1e-8, ncol(x)))` to `optim()` to change step size 
+of gradient approximation.
+
+
+## Summarizing the Empirical Results
+
+```{r}
+summary(mle)
+```
+
+## Fitted Values
+```{r, fig.height=6}
+plot(density(mle$fitted.values), 
+     main = "Density of fitted mean values")
+```
+
+## Formatting the results
+```{r}
+library(xtable)
+xtable(mle)
+```
