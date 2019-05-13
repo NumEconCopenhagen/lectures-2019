@@ -8,9 +8,18 @@ date: 12 May 2019
 
 **Inspiration:** This notebook is based on SMD.ipynb notebook from last lecture which is again based on a [Bradley Setzler's blog post](https://juliaeconomics.com/tag/method-of-simulated-moments/).
 
+## Getting started
+- Download:
+  - [Open source version](https://julialang.org/downloads/)
+  - [JuliaPro from Julia Computing (bundled with IDE and notebook support)](https://juliacomputing.com/products/juliapro)
+- [Documentation (language and about 1900 packages)](https://pkg.julialang.org/docs/)
+- Community:
+  - [Discourse](https://discourse.julialang.org)
+  - [Slack](https://julialang.slack.com)
+
 For introductory material on Julia for Economists, see [https://lectures.quantecon.org/jl/](https://lectures.quantecon.org/jl/)
 
-Some initial setup
+**Some initial setup**
 ```julia
 using Random, Statistics, PyPlot, Optim
 include("model.jl"); # Use trailing semi-colon to suppress output
