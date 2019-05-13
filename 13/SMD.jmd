@@ -100,7 +100,7 @@ fig
 We note that there is a clear relationship between consumption and wages. We could thus imagine estimating the two parameters in $\theta$ using the correlation between the consumption and wages, the average labor supply and the variance of consumption.
 
 ## Identification
-From the solution we note that the correlation between wages and consumption depends on $γ$ and $\tau$, the mean of the labor supply should be $1 - \gamma$ and that the variance of consumption should be proportional to the variance of $varepsilon$, $\sigma^2$. These moments, in turn, should be able to identify the parameters in $\theta$.
+From the solution we note that the correlation between wages and consumption depends on $γ$ and $\tau$, the mean of the labor supply should be $1 - \gamma$ and that the variance of consumption should be proportional to the variance of $\varepsilon$, $\sigma^2$. These moments, in turn, should be able to identify the parameters in $\theta$.
 
 We can denote the moments in the data as $\Lambda^{\mathrm{data}} = (\mathrm{corr}(w_i, c_i), \mathrm{mean}(l_i), \mathrm{var}(c_i))$ and calculate them as:
 
