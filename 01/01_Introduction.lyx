@@ -1695,7 +1695,7 @@ Problem Set 7: Solving the consumer problem with income risk
 \end_layout
 
 \begin_layout Enumerate
-Problem Set 8: Comperehension, vectorization and numba
+Work on your model analysis project
 \end_layout
 
 \begin_layout Enumerate
@@ -2006,6 +2006,14 @@ Find the error
 
 \begin_layout Enumerate
 Solve full problem
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Note: 
+\series default
+OK to peak at answers, but write the solution yourself
 \end_layout
 
 \end_deeper
@@ -2746,7 +2754,7 @@ Other models interesting for polit students
 \begin_layout Enumerate
 Useful code snippets and examples
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 show the example with substitution and income effects + perhaps Edgeworth-box
@@ -2796,7 +2804,7 @@ Major contributor
 \end_layout
 
 \begin_layout Section
-Summing Up
+Summing up
 \end_layout
 
 \begin_layout Frame
