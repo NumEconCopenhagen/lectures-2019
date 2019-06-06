@@ -247,5 +247,3 @@ def fill_sympy_matrix(A_sm,A,name='a'):
 
     # c. return filled matrix
     return f()
-                        
-                                    
